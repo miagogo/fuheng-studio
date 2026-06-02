@@ -1566,6 +1566,12 @@
   .gtransport h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px}
   .gtransport p{font-size:14px;color:var(--ink-soft);line-height:1.8}
   @media(max-width:760px){.gtransport{grid-template-columns:1fr}}
+  /* Location: map + transport */
+  .loc-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(18px,2.5vw,30px);margin-top:clamp(28px,3vw,44px);align-items:stretch}
+  .loc-map{border:1px solid var(--line-l);border-radius:14px;overflow:hidden;line-height:0}
+  .loc-map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
+  .gtransport-col{max-width:none;margin:0;grid-template-columns:1fr;align-content:start;gap:20px}
+  @media(max-width:860px){.loc-grid{grid-template-columns:1fr}.loc-map iframe{min-height:300px}}
   .gallery2 .gitem img{width:100%;display:block;transition:transform .6s var(--ease)}
   .gallery2 .gitem:hover img{transform:scale(1.04)}
   .gallery2 .gcap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(10,28,48,.85));color:var(--cream);opacity:0;transform:translateY(8px);transition:.4s var(--ease)}
@@ -1596,7 +1602,7 @@
         <a href="#about">關於</a>
         <a href="#services">服務</a>
         <a href="#works">作品</a>
-        <a href="#studio">工作室</a>
+        <a href="#location">位置</a>
         <a href="#faq">問答</a>
         <a href="#contact">聯絡</a>
       </nav>
@@ -1609,7 +1615,7 @@
     <a href="#about">關於</a>
     <a href="#services">服務</a>
     <a href="#works">作品</a>
-    <a href="#studio">工作室</a>
+    <a href="#location">位置</a>
     <a href="#faq">問答</a>
     <a href="#contact">聯絡</a>
     <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
@@ -1722,13 +1728,13 @@
       </div>
     </section>
 
-    <!-- Studio -->
-    <section id="studio" class="on-cream-2">
+    <!-- Location — 工作室 + 地圖 + 交通 -->
+    <section id="location" class="on-cream-2">
       <div class="wrap">
         <div class="head center" data-reveal>
-          <span class="eyebrow">Studio — 工作室</span>
-          <h2>我們拍照的地方</h2>
-          <p class="lead">明亮的棚拍空間、藏在詔安街巷弄裡的門市，與細心準備的妝髮區。</p>
+          <span class="eyebrow">Location — 工作室與交通</span>
+          <h2>來工作室走走</h2>
+          <p class="lead">明亮的棚拍空間、藏在詔安街巷弄裡的門市與妝髮區。位在台北中正・南機場夜市附近，交通方便。</p>
         </div>
         <div class="studio-grid">
           <figure class="studio-fig" data-reveal><img src="studio.png" alt="福亨攝影 明亮專業棚拍空間">
@@ -1751,6 +1757,16 @@
               <h3>福亨・門牌</h3>
             </figcaption>
           </figure>
+        </div>
+        <div class="loc-grid">
+          <div class="loc-map" data-reveal>
+            <iframe title="福亨攝影 Google 地圖位置" src="https://www.google.com/maps?q=%E7%A6%8F%E4%BA%A8%E6%94%9D%E5%BD%B1%20%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E8%A9%94%E5%AE%89%E8%A1%97234%E5%B7%B717%E8%99%9F&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="gtransport gtransport-col" data-reveal>
+            <div><h4>Address 地址</h4><p><a href="https://maps.app.goo.gl/nwdM4dtn1aZes25J6" target="_blank" rel="noopener">台北市中正區詔安街 234 巷 17 號</a>（南機場夜市附近）。巷子口較窄，走進去 1–2 分鐘即可看到。</p></div>
+            <div><h4>Bus 公車</h4><p>由西門站搭往南機場夜市方向（中山幹線、205、249 等），於「國興路口」站下車最近，車程約 5–10 分鐘，步行約 3 分鐘抵達。</p></div>
+            <div><h4>Car 開車</h4><p>平日週邊多有路邊車位，附近亦有停車場。建議使用地圖導航確保順利抵達。</p></div>
+          </div>
         </div>
       </div>
     </section>
@@ -1885,13 +1901,6 @@
             <div class="gcard"><h3>全家福合影 · Family</h3><ul><li>三代同堂、寶寶寫真、紀念日</li><li>為家人之間的愛，留一張可以掛在牆上的照片</li></ul></div>
             <div class="gcard"><h3>準備 & 注意</h3><ul><li>不含妝髮與服裝，現場會協助檢視調整</li><li>前一晚厚敷護唇膏、頭髮洗淨無油光</li><li>請準點到達即可，現場已預留梳妝時間</li></ul></div>
           </div>
-        </div>
-
-        <!-- 交通 -->
-        <div class="gtransport" data-reveal>
-          <div><h4>Address 地址</h4><p><a href="https://maps.app.goo.gl/nwdM4dtn1aZes25J6" target="_blank" rel="noopener">台北市中正區詔安街 234 巷 17 號</a>（南機場夜市附近）。巷子口較窄，走進去 1–2 分鐘即可看到。</p></div>
-          <div><h4>Bus 公車</h4><p>由西門站搭往南機場夜市方向（中山幹線、205、249 等），於「國興路口」站下車最近，車程約 5–10 分鐘，步行約 3 分鐘抵達。</p></div>
-          <div><h4>Car 開車</h4><p>平日週邊多有路邊車位，附近亦有停車場。建議使用地圖導航確保順利抵達。</p></div>
         </div>
       </div>
     </section>
@@ -2062,9 +2071,6 @@
           <div class="row"><span class="k">Facebook</span><span class="v"><a href="https://www.facebook.com/fuhengstudio" target="_blank" rel="noopener">fuhengstudio</a></span></div>
           <div class="row"><span class="k">Instagram</span><span class="v"><a href="https://www.instagram.com/fuheng_studio" target="_blank" rel="noopener">@fuheng_studio</a></span></div>
         </div>
-      </div>
-      <div class="wrap contact-map" data-reveal>
-        <iframe title="福亨攝影 Google 地圖位置" src="https://www.google.com/maps?q=%E7%A6%8F%E4%BA%A8%E6%94%9D%E5%BD%B1%20%E5%8F%B0%E5%8C%97%E5%B8%82%E4%B8%AD%E6%AD%A3%E5%8D%80%E8%A9%94%E5%AE%89%E8%A1%97234%E5%B7%B717%E8%99%9F&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </section>
   </main>
