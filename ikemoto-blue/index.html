@@ -1519,6 +1519,21 @@
   /* Contact map */
   .contact-map{margin-top:clamp(34px,4vw,52px);border:1px solid var(--line-d);border-radius:14px;overflow:hidden;line-height:0}
   .contact-map iframe{width:100%;height:clamp(240px,32vw,360px);border:0}
+
+  /* === Full-width sections (portfolio + testimonials) === */
+  .wrap-full{max-width:none;margin-inline:0;padding-inline:clamp(16px,3.5vw,48px)}
+  /* Masonry portfolio gallery */
+  .gallery2{column-count:4;column-gap:16px}
+  .gallery2 .gitem{display:block;break-inside:avoid;margin:0 0 16px;position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in;background:var(--navy-2)}
+  .gallery2 .gitem img{width:100%;display:block;transition:transform .6s var(--ease)}
+  .gallery2 .gitem:hover img{transform:scale(1.04)}
+  .gallery2 .gcap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(10,28,48,.85));color:var(--cream);opacity:0;transform:translateY(8px);transition:.4s var(--ease)}
+  .gallery2 .gitem:hover .gcap,.gallery2 .gitem:focus-within .gcap{opacity:1;transform:none}
+  .gallery2 .gcap .en{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+  .gallery2 .gcap h3{font-size:1rem;color:#fff;font-weight:500}
+  @media(max-width:1100px){.gallery2{column-count:3}}
+  @media(max-width:700px){.gallery2{column-count:2}}
+  @media(max-width:440px){.gallery2{column-count:1}}
   </style>
 </head>
 
@@ -1672,23 +1687,28 @@
         <div class="head center" data-reveal>
           <span class="eyebrow light">Selected Works — 作品集</span>
           <h2>每一張 都是一次安心的對話</h2>
+          <p class="lead">14 年來累積的真實作品——證件照、形象照、應試照、畢業照、婚紗與全家福。點任一張即可放大瀏覽。</p>
         </div>
-        <div class="works-grid">
-          <a data-lightbox class="case a" href="#contact" data-reveal><img src="work-lifestyle.png" alt="生活紀錄作品"><span class="cap"><span class="en">Lifestyle</span>
-              <h3>生活紀錄</h3>
-            </span></a>
-          <a data-lightbox class="case b" href="#contact" data-reveal><img src="photographer-portrait.png" alt="形象肖像作品"><span class="cap"><span class="en">Portrait</span>
-              <h3>形象肖像</h3>
-            </span></a>
-          <a data-lightbox class="case c" href="#contact" data-reveal><img src="work-id.png" alt="標準證件照作品"><span class="cap"><span class="en">ID Photo</span>
-              <h3>標準證件照</h3>
-            </span></a>
-          <a data-lightbox class="case d" href="#contact" data-reveal><img src="work-headshot.png" alt="專業形象照作品"><span class="cap"><span class="en">Headshot</span>
-              <h3>專業形象照</h3>
-            </span></a>
-          <a data-lightbox class="case e" href="#contact" data-reveal><img src="work-portrait.png" alt="光影人像作品"><span class="cap"><span class="en">Fine Art</span>
-              <h3>光影人像</h3>
-            </span></a>
+      </div>
+      <div class="wrap-full">
+        <div class="gallery2" data-reveal>
+          <a class="gitem" data-lightbox href="#"><img src="pf01.jpg" alt="福亨攝影 畢業學士服作品" loading="lazy"><span class="gcap"><span class="en">Graduation</span><h3>畢業・學士服</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf02.jpg" alt="福亨攝影 形象照作品" loading="lazy"><span class="gcap"><span class="en">Headshot</span><h3>形象照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf03.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"><span class="gcap"><span class="en">Profile</span><h3>應試形象照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf04.jpg" alt="福亨攝影 形象照作品" loading="lazy"><span class="gcap"><span class="en">Headshot</span><h3>形象照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf05.jpg" alt="福亨攝影 形象照作品" loading="lazy"><span class="gcap"><span class="en">Headshot</span><h3>形象照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf06.jpg" alt="福亨攝影 全家福合影作品" loading="lazy"><span class="gcap"><span class="en">Family</span><h3>全家福合影</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf07.jpg" alt="福亨攝影 形象寫真作品" loading="lazy"><span class="gcap"><span class="en">Portrait</span><h3>形象寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf08.jpg" alt="福亨攝影 情侶寫真作品" loading="lazy"><span class="gcap"><span class="en">Couple</span><h3>情侶寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf09.jpg" alt="福亨攝影 個人寫真作品" loading="lazy"><span class="gcap"><span class="en">Portrait</span><h3>個人寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf10.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"><span class="gcap"><span class="en">Cabin Crew</span><h3>空姐應試照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf11.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"><span class="gcap"><span class="en">Wedding</span><h3>婚紗寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf12.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"><span class="gcap"><span class="en">Wedding</span><h3>婚紗寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf13.jpg" alt="福亨攝影 畢業照作品" loading="lazy"><span class="gcap"><span class="en">Graduation</span><h3>畢業照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf14.jpg" alt="福亨攝影 形象全身照作品" loading="lazy"><span class="gcap"><span class="en">Profile</span><h3>形象全身照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf15.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"><span class="gcap"><span class="en">Cabin Crew</span><h3>空姐應試照</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf16.jpg" alt="福亨攝影 個性寫真作品" loading="lazy"><span class="gcap"><span class="en">Creative</span><h3>個性寫真</h3></span></a>
+          <a class="gitem" data-lightbox href="#"><img src="pf17.jpg" alt="福亨攝影 證件照作品" loading="lazy"><span class="gcap"><span class="en">ID Photo</span><h3>證件照</h3></span></a>
         </div>
       </div>
     </section>
@@ -1792,6 +1812,8 @@
           <h2>客戶的真心話</h2>
           <p class="lead">來自 Google 上的真實五星好評。點任一張成品照，可放大看照片與完整評論。</p>
         </div>
+      </div>
+      <div class="wrap-full">
         <div class="tcar-wrap" data-reveal>
           <button class="tcar-btn tcar-prev" id="tcarPrev" type="button" aria-label="上一個">‹</button>
           <div class="tcar" id="tcar">
@@ -1945,6 +1967,8 @@
           <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:fuhengstudio@gmail.com">fuhengstudio@gmail.com</a></span></div>
           <div class="row"><span class="k">Address 地址</span><span class="v"><a href="https://maps.app.goo.gl/nwdM4dtn1aZes25J6" target="_blank" rel="noopener">台北市中正區詔安街 234 巷 17 號</a></span></div>
           <div class="row"><span class="k">Hours 營業</span><span class="v">平日 12:30 – 21:30（預約制）</span></div>
+          <div class="row"><span class="k">Facebook</span><span class="v"><a href="https://www.facebook.com/fuhengstudio" target="_blank" rel="noopener">fuhengstudio</a></span></div>
+          <div class="row"><span class="k">Instagram</span><span class="v"><a href="https://www.instagram.com/fuheng_studio" target="_blank" rel="noopener">@fuheng_studio</a></span></div>
         </div>
       </div>
       <div class="wrap contact-map" data-reveal>
@@ -1961,8 +1985,8 @@
           <span>福亨攝影<small style="color:var(--gold)">FU HENG</small></span>
         </a>
         <div class="foot-links">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="Facebook">Facebook</a>
+          <a href="https://www.instagram.com/fuheng_studio" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+          <a href="https://www.facebook.com/fuhengstudio" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
           <a href="#top">回到頂端 ↑</a>
         </div>
       </div>
