@@ -1524,7 +1524,38 @@
   .wrap-full{max-width:none;margin-inline:0;padding-inline:clamp(16px,3.5vw,48px)}
   /* Masonry portfolio gallery */
   .gallery2{column-count:4;column-gap:16px}
-  .gallery2 .gitem{display:block;break-inside:avoid;margin:0 0 16px;position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in;background:var(--navy-2)}
+  .gallery2 .gitem{display:block;break-inside:avoid;margin:0 0 16px;position:relative;overflow:hidden;border-radius:12px;cursor:zoom-in;background:var(--navy-2);opacity:0;transform:translateY(18px) scale(.985);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .gallery2 .gitem.show{opacity:1;transform:none}
+  .gallery2 .gitem.hide{display:none}
+  /* Portfolio pager */
+  .pf-pager{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:clamp(28px,3vw,42px)}
+  .pf-page{font-family:var(--sans);font-size:14px;min-width:42px;height:42px;padding:0 13px;border-radius:999px;border:1px solid var(--line-d);background:transparent;color:rgba(224,239,250,.8);cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
+  .pf-page:hover:not(:disabled){border-color:var(--gold-soft);color:var(--cream)}
+  .pf-page.is-active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+  .pf-page:disabled{opacity:.35;cursor:default}
+  /* Guide / 拍攝說明 section */
+  .gtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:clamp(28px,3vw,44px)}
+  .gtab{font-family:var(--sans);font-size:15px;color:var(--ink-soft);background:#fff;border:1px solid var(--line-l);border-radius:999px;padding:11px 26px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+  .gtab:hover{border-color:var(--gold)}
+  .gtab.is-active{background:var(--gold);color:#fff;border-color:var(--gold)}
+  .gpanel{display:none}
+  .gpanel.is-active{display:block;animation:gfade .5s var(--ease)}
+  @keyframes gfade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .gcols{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,2.5vw,28px);max-width:1100px;margin-inline:auto}
+  @media(max-width:760px){.gcols{grid-template-columns:1fr}}
+  .gcard{background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:clamp(22px,3vw,30px)}
+  .gcard h3{font-family:var(--serif);font-size:1.2rem;color:var(--ink);margin-bottom:14px}
+  .gcard .gprice{font-family:var(--serif);font-size:1.5rem;color:var(--gold-deep);font-weight:600;margin-bottom:12px}
+  .gcard ul{display:flex;flex-direction:column;gap:9px}
+  .gcard li{position:relative;padding-left:18px;color:var(--ink-soft);font-size:14.5px;line-height:1.75}
+  .gcard li::before{content:"–";position:absolute;left:0;color:var(--gold)}
+  .gcard li.warn{color:#C0392B;font-weight:500}
+  .gcard li.warn::before{content:"⚠";color:#C0392B;left:-2px}
+  .gnote{max-width:1100px;margin:clamp(18px,2vw,26px) auto 0;font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.85}
+  .gtransport{max-width:1100px;margin:clamp(20px,2.5vw,30px) auto 0;background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:clamp(22px,3vw,30px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .gtransport h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px}
+  .gtransport p{font-size:14px;color:var(--ink-soft);line-height:1.8}
+  @media(max-width:760px){.gtransport{grid-template-columns:1fr}}
   .gallery2 .gitem img{width:100%;display:block;transition:transform .6s var(--ease)}
   .gallery2 .gitem:hover img{transform:scale(1.04)}
   .gallery2 .gcap{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;background:linear-gradient(transparent,rgba(10,28,48,.85));color:var(--cream);opacity:0;transform:translateY(8px);transition:.4s var(--ease)}
@@ -1557,6 +1588,7 @@
         <a href="#works">作品</a>
         <a href="#studio">工作室</a>
         <a href="#pricing">價格</a>
+        <a href="#guide">說明</a>
         <a href="#faq">問答</a>
         <a href="#contact">聯絡</a>
       </nav>
@@ -1571,6 +1603,7 @@
     <a href="#works">作品</a>
     <a href="#studio">工作室</a>
     <a href="#pricing">價格</a>
+    <a href="#guide">說明</a>
     <a href="#faq">問答</a>
     <a href="#contact">聯絡</a>
     <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
@@ -1705,7 +1738,7 @@
           <button class="pf-tab" type="button" data-filter="wedding">婚紗・全家福</button>
           <button class="pf-tab" type="button" data-filter="grad">畢業照</button>
         </div>
-        <div class="gallery2" data-reveal>
+        <div class="gallery2">
           <a class="gitem" data-lightbox data-cat="grad" href="#"><img src="pf01.jpg" alt="福亨攝影 畢業學士服作品" loading="lazy"><span class="gcap"><span class="en">Graduation</span><h3>畢業・學士服</h3></span></a>
           <a class="gitem" data-lightbox data-cat="profile" href="#"><img src="pf02.jpg" alt="福亨攝影 形象照作品" loading="lazy"><span class="gcap"><span class="en">Headshot</span><h3>形象照</h3></span></a>
           <a class="gitem" data-lightbox data-cat="profile" href="#"><img src="pf03.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"><span class="gcap"><span class="en">Profile</span><h3>應試形象照</h3></span></a>
@@ -1727,6 +1760,7 @@
           <a class="gitem" data-lightbox data-cat="id" href="#"><img src="pf19.jpg" alt="福亨攝影 證件照作品" loading="lazy"><span class="gcap"><span class="en">ID Photo</span><h3>證件照</h3></span></a>
           <a class="gitem" data-lightbox data-cat="profile" href="#"><img src="pf20.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"><span class="gcap"><span class="en">Profile</span><h3>應試形象照</h3></span></a>
         </div>
+        <div class="pf-pager" id="pfPager" role="navigation" aria-label="作品分頁"></div>
       </div>
     </section>
 
@@ -1797,13 +1831,13 @@
         <div class="price-list">
           <div class="price-row" data-reveal>
             <div class="left"><h3>證件照・一般修</h3>
-              <ul class="inc"><li>修飾皮膚瑕疵（痘痘、泛紅）</li><li>專業打光與表情引導</li><li>沖洗多張＋電子檔</li><li>當日即可取件，立即拿到照片</li></ul></div>
-            <div class="right"><div class="amt">NT$ 500</div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a></div>
+              <ul class="inc"><li>調整黑眼圈、痘痘、眼袋、瘦臉</li><li>不特別調整五官對稱</li><li>實體照片＋電子檔（1吋9張／2吋6張）</li><li>當場或隔日取件</li></ul></div>
+            <div class="right"><div class="amt">NT$ 600</div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a></div>
           </div>
           <div class="price-row" data-reveal>
             <div class="left"><h3>證件照・精修 <span class="star">細緻</span></h3>
-              <ul class="inc"><li>包含「一般修」所有項目</li><li>五官與臉部對稱微調</li><li>更細緻的膚質與光影處理</li><li>約 3–5 個工作天（一週內）交件</li></ul></div>
-            <div class="right"><div class="amt">NT$ 800</div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a></div>
+              <ul class="inc"><li>包含「一般修」所有項目</li><li>細調五官對稱與整體平衡</li><li>更精緻自然的效果（粉專範例皆為精修）</li><li>約 3–5 個工作天（急件 +$200、特急 +$400）</li></ul></div>
+            <div class="right"><div class="amt">NT$ 900</div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a></div>
           </div>
         </div>
 
@@ -1813,16 +1847,111 @@
         <div class="price-list">
           <div class="price-row" data-reveal>
             <div class="left"><h3>空姐應試照方案 <span class="star">招牌</span></h3>
-              <ul class="inc"><li>妝髮與儀態造型指導</li><li>全身＋半身＋大頭照</li><li>精修（符合航空規格）</li><li>高解析電子檔交付</li></ul></div>
-            <div class="right"><div class="amt">NT$ 2,200 <small>起</small></div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a></div>
+              <ul class="inc"><li>航空應試證件照 $800・全身照 $1000</li><li>妝髮與儀態造型指導</li><li>精修（符合航空規格）</li><li>2吋6張＋4×6 三張＋電子檔</li></ul></div>
+            <div class="right"><div class="amt">NT$ 800 <small>起</small></div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a></div>
           </div>
           <div class="price-row" data-reveal>
-            <div class="left"><h3>人像・形象方案</h3>
-              <ul class="inc"><li>棚拍或外景擇一</li><li>多套服裝、多組光線</li><li>精選 5 張深度精修</li><li>全部原檔電子交付</li></ul></div>
-            <div class="right"><div class="amt">NT$ 3,500 <small>起</small></div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a></div>
+            <div class="left"><h3>形象照方案</h3>
+              <ul class="inc"><li>標準 $1200／張・急件 $1700／張</li><li>專業打光與表情引導、精修</li><li>約 3–5 個工作天（急件當晚或隔天）</li><li>實體照片＋電子檔</li></ul></div>
+            <div class="right"><div class="amt">NT$ 1,200 <small>/張</small></div><a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a></div>
           </div>
         </div>
-        <p class="price-note">＊ 以上為示意價格，實際報價請依需求洽詢。</p>
+        <p class="price-note">＊ 完整加購項目、急件與準備事項，請見下方〈拍攝說明〉，實際以 LINE 洽詢為準。</p>
+      </div>
+    </section>
+
+    <!-- Guide / 拍攝說明 -->
+    <section id="guide" class="on-cream-2">
+      <div class="wrap">
+        <div class="head center" data-reveal>
+          <span class="eyebrow">Guide — 拍攝說明</span>
+          <h2>拍攝前，先看這裡</h2>
+          <p class="lead">完整的方案費用、修圖差異與準備指南。不含妝髮與服裝，拍攝時會協助檢視調整；實際以現場與 LINE 洽詢為準。</p>
+        </div>
+
+        <div class="gtabs" data-reveal role="tablist" aria-label="拍攝說明分類">
+          <button class="gtab is-active" type="button" data-g="id">證件照</button>
+          <button class="gtab" type="button" data-g="crew">航空應試照</button>
+          <button class="gtab" type="button" data-g="profile">形象照</button>
+        </div>
+
+        <!-- 證件照 -->
+        <div class="gpanel is-active" data-g="id" data-reveal>
+          <div class="gcols">
+            <div class="gcard">
+              <div class="gprice">NT$ 600 ／ 900</div>
+              <h3>方案費用</h3>
+              <ul><li>一般修圖 $600（當場或隔日取件）</li><li>精修 $900（3–5 個工作天）</li><li>急件 +$200（隔天晚上 E-mail）</li><li>特急件 +$400（當天晚上 E-mail）</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>修圖差異 & 內容</h3>
+              <ul><li>一般修：調整黑眼圈、痘痘、眼袋、瘦臉，不特別調整五官對稱</li><li>精修：細調五官對稱與整體平衡，更精緻自然（粉專範例皆為精修）</li><li>判斷基準：是否需要「對稱一點」</li><li>內建一組（1吋9張／2吋6張）＋實體照片與電子檔</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>加購項目</h3>
+              <ul><li>加洗照片 $100／組</li><li>修正放大片瞳孔 $200</li><li>修正眼鏡反光 $200</li><li>7-11 店到店寄送 $60</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>準備指南</h3>
+              <ul><li>女生：底妝延伸至脖子避免色差，霧面妝感為主</li><li>男生：造型乾淨整齊，避免皺髒服裝</li><li>前一晚厚敷護唇膏；頭髮提前洗淨無油光</li><li>建議不戴眼鏡或改戴無鏡片框（一般修不處理鏡片反光）</li><li>避免變色片／放大片，以免申辦被退件</li><li>眉毛、耳朵清楚露出；台胞證勿穿淺色上衣、飾品、眼鏡</li></ul>
+            </div>
+          </div>
+          <p class="gnote">拍攝約 5–10 分鐘，請準點到達即可（現場已預留梳妝時間）。工作天不含拍攝日與假日。</p>
+        </div>
+
+        <!-- 航空應試照 -->
+        <div class="gpanel" data-g="crew" data-reveal>
+          <div class="gcols">
+            <div class="gcard">
+              <div class="gprice">NT$ 800 ／ 1000</div>
+              <h3>方案費用</h3>
+              <ul><li>航空應試證件照 $800</li><li>航空應試全身照 $1000</li><li>急件 +$200（隔天晚上 E-mail）</li><li>特急件 +$400（當天晚上 E-mail）</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>拍攝內容 & 加購</h3>
+              <ul><li>內建一組實體照片＋電子檔</li><li>實體照片：2吋6張／4×6 三張</li><li>加洗 $100／組</li><li>修裙長 $300・修牙套 $400・修放大片瞳孔 $200</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>妝髮 & 造型準備</h3>
+              <ul><li>攜帶全妝用具（底妝、腮紅、口紅、眼影、睫毛膏夾、眉筆、刷具…）</li><li>密齒扁梳（愈細密愈好）、小黑夾、髮圈、髮網</li><li>避免飯店白色對折梳或齒距過大的梳子</li><li>盤髮務必梳齊、髮量平均，完整度比高度蓬度重要</li><li class="warn">不要噴定型液！待攝影師確認後才使用（非常重要）</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>妝容 & 服裝</h3>
+              <ul><li>底妝選自然色，避免過亮過白（恐拍起來偏灰）</li><li>霧面妝感，打亮細緻、避免粗珠光（尤其眼影）</li><li>服裝提前燙熨、領口整潔無皺褶污漬</li><li>尺寸合身，不緊身也不寬鬆</li></ul>
+            </div>
+          </div>
+          <p class="gnote">拍攝約 10–15 分鐘，請準點到達即可。工作天約 3–5 天（不含假日），依拍攝組數調整。</p>
+        </div>
+
+        <!-- 形象照 -->
+        <div class="gpanel" data-g="profile" data-reveal>
+          <div class="gcols">
+            <div class="gcard">
+              <div class="gprice">NT$ 1,200 ／張</div>
+              <h3>方案費用</h3>
+              <ul><li>標準方案 $1200／張（3–5 個工作天）</li><li>急件方案 $1700／張（最快當晚或隔天電子檔）</li><li>7-11 店到店寄送實體照片 $60</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>女生準備</h3>
+              <ul><li>建議攜帶化妝包，脖子也需上妝避免色差</li><li>建議霧面質感彩妝，打亮細緻、避免粗珠光（尤其眼影）</li><li>妝容僅為建議，可依個人需求決定是否上妝</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>男生 & 通用準備</h3>
+              <ul><li>男生：造型乾淨整齊，避免皺髒服裝</li><li>前一晚睡前厚敷護唇膏（非常重要！）</li><li>頭髮提前洗淨，清爽無油光好整理</li></ul>
+            </div>
+            <div class="gcard">
+              <h3>注意事項</h3>
+              <ul><li>不含妝髮與服裝，現場會協助檢視調整</li><li>工作天約 3–5 天（不含假日），依拍攝組數調整</li><li>請準點到達即可，現場已預留梳妝整理時間</li></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 交通 -->
+        <div class="gtransport" data-reveal>
+          <div><h4>Address 地址</h4><p><a href="https://maps.app.goo.gl/nwdM4dtn1aZes25J6" target="_blank" rel="noopener">台北市中正區詔安街 234 巷 17 號</a>（南機場夜市附近）。巷子口較窄，走進去 1–2 分鐘即可看到。</p></div>
+          <div><h4>Bus 公車</h4><p>由西門站搭往南機場夜市方向（中山幹線、205、249 等），於「國興路口」站下車最近，車程約 5–10 分鐘，步行約 3 分鐘抵達。</p></div>
+          <div><h4>Car 開車</h4><p>平日週邊多有路邊車位，附近亦有停車場。建議使用地圖導航確保順利抵達。</p></div>
+        </div>
       </div>
     </section>
 
@@ -2074,20 +2203,67 @@
       });
     })();
     document.addEventListener("DOMContentLoaded", function () {
-      var trig = [].slice.call(document.querySelectorAll('[data-lightbox]'));
-      var lb = document.getElementById('lightbox'); if (!trig.length || !lb) return;
+      // Portfolio: category filter + pagination + category-aware lightbox
+      var PER = 6;
+      var allItems = [].slice.call(document.querySelectorAll('.gallery2 .gitem'));
+      var tabs = [].slice.call(document.querySelectorAll('.pf-tab'));
+      var pager = document.getElementById('pfPager');
+      var lb = document.getElementById('lightbox');
+      if (!allItems.length || !lb) return;
       var lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap'), lbCount = document.getElementById('lbCount');
-      var items = trig.map(function (t) { var im = t.tagName === 'IMG' ? t : t.querySelector('img'); var h = t.querySelector('h3'); return { src: im.getAttribute('src'), cap: (h ? h.textContent : '') || im.getAttribute('alt') || '' }; });
-      var i = 0;
-      function show(n) { i = (n + items.length) % items.length; lbImg.setAttribute('src', items[i].src); lbImg.setAttribute('alt', items[i].cap); lbCap.textContent = items[i].cap; lbCount.textContent = (i + 1) + ' / ' + items.length; }
-      function open(n) { show(n); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      var filter = 'all', page = 0, filtered = allItems.slice(), li = 0;
+
+      function matches(it) { return filter === 'all' || it.getAttribute('data-cat') === filter; }
+      function render(animate) {
+        filtered = allItems.filter(matches);
+        var pages = Math.max(1, Math.ceil(filtered.length / PER));
+        if (page >= pages) page = 0;
+        allItems.forEach(function (it) { it.classList.add('hide'); it.classList.remove('show'); it.style.transitionDelay = ''; });
+        var pageItems = filtered.slice(page * PER, page * PER + PER);
+        pageItems.forEach(function (it) { it.classList.remove('hide'); });
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          pageItems.forEach(function (it, idx) { it.style.transitionDelay = (animate ? idx * 55 : 0) + 'ms'; it.classList.add('show'); });
+        }); });
+        renderPager(pages);
+      }
+      function renderPager(pages) {
+        if (!pager) return;
+        pager.innerHTML = '';
+        if (pages <= 1) { pager.style.display = 'none'; return; }
+        pager.style.display = '';
+        function btn(label, go, opts) {
+          opts = opts || {};
+          var b = document.createElement('button'); b.type = 'button';
+          b.className = 'pf-page' + (opts.active ? ' is-active' : '') + (opts.nav ? ' pf-nav' : '');
+          b.textContent = label; if (opts.disabled) b.disabled = true;
+          if (!opts.disabled && go != null) b.addEventListener('click', function () { page = go; render(true); scrollUp(); });
+          return b;
+        }
+        pager.appendChild(btn('‹', page - 1, { nav: true, disabled: page === 0 }));
+        for (var p = 0; p < pages; p++) pager.appendChild(btn(String(p + 1), p, { active: p === page }));
+        pager.appendChild(btn('›', page + 1, { nav: true, disabled: page === pages - 1 }));
+      }
+      function scrollUp() { var t = document.querySelector('.pf-tabs'); if (t) { window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); } }
+
+      tabs.forEach(function (t) { t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('is-active'); }); t.classList.add('is-active');
+        filter = t.getAttribute('data-filter'); page = 0; render(true);
+      }); });
+
+      // Category-aware lightbox (cycles within the active filter)
+      function lbList() { return filtered.map(function (it) { var im = it.querySelector('img'); var h = it.querySelector('h3'); return { src: im.getAttribute('src'), cap: h ? h.textContent : (im.getAttribute('alt') || '') }; }); }
+      var data = [];
+      function show(n) { data = lbList(); if (!data.length) return; li = (n + data.length) % data.length; lbImg.setAttribute('src', data[li].src); lbImg.setAttribute('alt', data[li].cap); lbCap.textContent = data[li].cap; lbCount.textContent = (li + 1) + ' / ' + data.length; }
+      function open(it) { data = lbList(); var idx = filtered.indexOf(it); show(idx < 0 ? 0 : idx); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
       function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
-      trig.forEach(function (t, n) { t.setAttribute('tabindex', '0'); t.addEventListener('click', function (e) { e.preventDefault(); open(n); }); t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(n); } }); });
+      allItems.forEach(function (it) { it.setAttribute('tabindex', '0'); it.addEventListener('click', function (e) { e.preventDefault(); open(it); }); it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(it); } }); });
       document.getElementById('lbClose').addEventListener('click', close);
-      document.getElementById('lbPrev').addEventListener('click', function () { show(i - 1); });
-      document.getElementById('lbNext').addEventListener('click', function () { show(i + 1); });
+      document.getElementById('lbPrev').addEventListener('click', function () { show(li - 1); });
+      document.getElementById('lbNext').addEventListener('click', function () { show(li + 1); });
       lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(i - 1); else if (e.key === 'ArrowRight') show(i + 1); });
+      document.addEventListener('keydown', function (e) { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(li - 1); else if (e.key === 'ArrowRight') show(li + 1); });
+
+      render(false);
     });
   document.addEventListener("DOMContentLoaded",function(){
     var car=document.getElementById('tcar');
@@ -2115,20 +2291,14 @@
     }
   });
   document.addEventListener("DOMContentLoaded",function(){
-    var tabs=[].slice.call(document.querySelectorAll('.pf-tab'));
-    var items=[].slice.call(document.querySelectorAll('.gallery2 .gitem'));
-    if(!tabs.length||!items.length)return;
-    tabs.forEach(function(t){
-      t.addEventListener('click',function(){
-        tabs.forEach(function(x){x.classList.remove('is-active');x.setAttribute('aria-selected','false');});
-        t.classList.add('is-active');t.setAttribute('aria-selected','true');
-        var f=t.getAttribute('data-filter');
-        items.forEach(function(it){
-          var show = f==='all' || it.getAttribute('data-cat')===f;
-          it.classList.toggle('hide', !show);
-        });
-      });
-    });
+    var gtabs=[].slice.call(document.querySelectorAll('.gtab'));
+    var gpanels=[].slice.call(document.querySelectorAll('.gpanel'));
+    if(!gtabs.length)return;
+    gtabs.forEach(function(t){t.addEventListener('click',function(){
+      var g=t.getAttribute('data-g');
+      gtabs.forEach(function(x){x.classList.toggle('is-active',x===t);});
+      gpanels.forEach(function(p){p.classList.toggle('is-active',p.getAttribute('data-g')===g);});
+    });});
   });
   </script>
   <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="作品集瀏覽">
