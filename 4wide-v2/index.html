@@ -239,6 +239,29 @@
     *{transition:none!important;animation:none!important}
     [data-reveal]{opacity:1;transform:none}
   }
+  /* Why-a-pro section */
+  .why-head{max-width:900px}
+  .why-head h2{margin-top:18px}
+  .why-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,5vw,72px);align-items:center;margin-top:clamp(28px,4vw,52px)}
+  .why-copy p{color:var(--muted);margin-bottom:16px;font-size:1rem;line-height:1.85}
+  .why-copy p.lead{color:var(--ink);margin-bottom:22px;font-weight:300}
+  .why-fig img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .why-chips{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:clamp(36px,4vw,56px)}
+  .why-chips span{border:1px solid var(--accent);color:var(--accent-deep);border-radius:999px;padding:10px 20px;font-size:15px}
+  @media(max-width:860px){.why-grid{grid-template-columns:1fr}.why-fig{max-width:520px;margin-inline:auto}}
+  /* Lightbox */
+  .lb{position:fixed;inset:0;z-index:1000;background:rgba(8,12,18,.95);display:none;align-items:center;justify-content:center}
+  .lb.open{display:flex}
+  .lb #lbImg{max-width:90vw;max-height:84vh;object-fit:contain;box-shadow:0 24px 70px rgba(0,0,0,.6)}
+  .lb-btn{position:absolute;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);color:#fff;width:54px;height:54px;border-radius:50%;font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .25s,transform .25s}
+  .lb-btn:hover{background:rgba(255,255,255,.22)}
+  .lb-prev{left:24px;top:50%;transform:translateY(-50%)}
+  .lb-next{right:24px;top:50%;transform:translateY(-50%)}
+  .lb-close{top:22px;right:22px;width:46px;height:46px;font-size:20px}
+  .lb-cap{position:absolute;left:0;right:0;bottom:26px;text-align:center;color:#fff;font-size:14px;letter-spacing:.06em}
+  .lb-count{position:absolute;top:28px;left:26px;color:rgba(255,255,255,.7);font-size:13px;letter-spacing:.12em}
+  [data-lightbox]{cursor:zoom-in}
+  @media(max-width:600px){.lb-prev{left:8px}.lb-next{right:8px}.lb-btn{width:46px;height:46px}}
 </style>
 </head>
 <body>
@@ -352,31 +375,50 @@
         <p class="lead" data-reveal>每一張，都是一次安心的對話。</p>
       </div>
       <div class="works-grid">
-        <a class="case tall" href="#contact" data-reveal>
+        <a data-lightbox class="case tall" href="#contact" data-reveal>
           <div class="frame"><img src="work-portrait.png" alt="光影人像作品"></div>
           <div class="meta-line"><h3>光影人像</h3><span class="en">Fine Art</span></div>
           <div class="idx" style="margin-top:8px">01 — Portrait</div>
         </a>
-        <a class="case" href="#contact" data-reveal>
+        <a data-lightbox class="case" href="#contact" data-reveal>
           <div class="frame"><img src="work-id.png" alt="標準證件照作品"></div>
           <div class="meta-line"><h3>標準證件照</h3><span class="en">ID Photo</span></div>
           <div class="idx" style="margin-top:8px">02 — Identity</div>
         </a>
-        <a class="case" href="#contact" data-reveal>
+        <a data-lightbox class="case" href="#contact" data-reveal>
           <div class="frame"><img src="work-headshot.png" alt="專業形象照作品"></div>
           <div class="meta-line"><h3>專業形象照</h3><span class="en">Headshot</span></div>
           <div class="idx" style="margin-top:8px">03 — Profile</div>
         </a>
-        <a class="case tall" href="#contact" data-reveal>
+        <a data-lightbox class="case tall" href="#contact" data-reveal>
           <div class="frame"><img src="work-lifestyle.png" alt="生活紀錄作品"></div>
           <div class="meta-line"><h3>生活紀錄</h3><span class="en">Lifestyle</span></div>
           <div class="idx" style="margin-top:8px">04 — Daily</div>
         </a>
-        <a class="case" href="#contact" data-reveal>
-          <div class="frame"><img src="casual.jpg" alt="攝影師的日常，草地與狗狗"></div>
-          <div class="meta-line"><h3>鏡頭外的日常</h3><span class="en">Off Duty</span></div>
-          <div class="idx" style="margin-top:8px">05 — Off Duty</div>
-        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why a pro -->
+  <section id="why">
+    <div class="wrap">
+      <div class="head why-head">
+        <span class="eyebrow" data-reveal>Why a Pro — 為什麼找專業攝影師</span>
+        <h2 data-reveal>照片，往往比文字<br>更早讓人認識你</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-copy" data-reveal>
+          <p class="lead">在人人都有高階手機、AI 修圖，甚至隨處都有自助證件照機的時代，拍照早已不難。但真正的問題是——你想要的，是一張「可使用的照片」，還是一張能代表你的形象照？</p>
+          <p>自助機很方便：快速、便宜、即拍即拿，它的目的是給你一張「符合規格」的照片。但專業人像攝影在意的，從來不只是規格，而是「你給人的感受」。鏡頭距離、光線方向、臉部比例、姿態、眼神，甚至嘴角的細微角度，都會影響別人對你的第一印象。</p>
+          <p>手機與 AI 可以幫你修飾外表，卻很難取代專業攝影師對光線、情緒與人物狀態的理解。真正好的形象照，不是把你修成另一個人，而是保留你的樣子，拍出你最自然、自信、舒服的狀態。</p>
+        </div>
+        <figure class="why-fig" data-reveal><img src="why-pro.png" alt="專業攝影師在棚內細心引導拍攝"></figure>
+      </div>
+      <div class="why-chips" data-reveal>
+        <span>「這個人很有質感。」</span>
+        <span>「感覺值得信任。」</span>
+        <span>「很自然、很舒服。」</span>
+        <span>「像是一個有故事的人。」</span>
       </div>
     </div>
   </section>
@@ -539,6 +581,30 @@
     });
   });
 })();
+document.addEventListener("DOMContentLoaded",function(){
+  var trig=[].slice.call(document.querySelectorAll('[data-lightbox]'));
+  var lb=document.getElementById('lightbox'); if(!trig.length||!lb)return;
+  var lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap'),lbCount=document.getElementById('lbCount');
+  var items=trig.map(function(t){var im=t.tagName==='IMG'?t:t.querySelector('img');var h=t.querySelector('h3');return{src:im.getAttribute('src'),cap:(h?h.textContent:'')||im.getAttribute('alt')||''};});
+  var i=0;
+  function show(n){i=(n+items.length)%items.length;lbImg.setAttribute('src',items[i].src);lbImg.setAttribute('alt',items[i].cap);lbCap.textContent=items[i].cap;lbCount.textContent=(i+1)+' / '+items.length;}
+  function open(n){show(n);lb.classList.add('open');document.body.style.overflow='hidden';}
+  function close(){lb.classList.remove('open');document.body.style.overflow='';}
+  trig.forEach(function(t,n){t.setAttribute('tabindex','0');t.addEventListener('click',function(e){e.preventDefault();open(n);});t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(n);}});});
+  document.getElementById('lbClose').addEventListener('click',close);
+  document.getElementById('lbPrev').addEventListener('click',function(){show(i-1);});
+  document.getElementById('lbNext').addEventListener('click',function(){show(i+1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();else if(e.key==='ArrowLeft')show(i-1);else if(e.key==='ArrowRight')show(i+1);});
+});
 </script>
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="作品集瀏覽">
+  <span class="lb-count" id="lbCount"></span>
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="關閉">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="上一張">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="下一張">›</button>
+  <span class="lb-cap" id="lbCap"></span>
+</div>
 </body>
 </html>
