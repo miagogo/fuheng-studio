@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>福亨攝影 FU HENG｜證件照・大頭照・人像・空姐應試照</title>
+<meta name="description" content="福亨攝影 FU HENG — 台北．三十年經驗的攝影工作室。證件照、大頭照、人像與生活攝影，尤以空姐應試照口碑著稱。細膩、溫暖、以人為本。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* token names kept; values swapped brown→sky-blue */
+    --navy:#0A1C30;
+    --navy-2:#12304C;
+    --navy-3:#1C4A72;
+    --cream:#E9F1F8;
+    --cream-2:#D7E6F2;
+    --ink:#13212E;
+    --ink-soft:#516373;
+    --gold:#3FA7E0;
+    --gold-deep:#15689A;
+    --gold-soft:#BBE0F6;
+    --white:#ffffff;
+    --line-d:rgba(224,239,250,.16);
+    --line-l:rgba(19,33,46,.14);
+    --sans:"Noto Sans TC",sans-serif;
+    --serif:"Noto Serif TC",serif;
+    --maxw:1280px;
+    --pad:clamp(20px,5vw,64px);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{background:var(--cream);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.9;font-weight:400;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block;height:auto}
+  a{color:inherit;text-decoration:none}
+  ul{list-style:none}
+  ::selection{background:var(--gold);color:var(--navy)}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+  section{padding-block:clamp(80px,11vw,150px)}
+
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-deep);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:30px;height:1px;background:var(--gold)}
+  .on-navy .eyebrow,.eyebrow.light{color:var(--gold)}
+  h2{font-family:var(--serif);font-size:clamp(2.4rem,6.2vw,5.2rem);font-weight:500;letter-spacing:.01em;line-height:1.12}
+  h3{font-size:clamp(1.15rem,1.7vw,1.4rem);font-weight:500;letter-spacing:.04em}
+  p{color:var(--ink-soft)}
+  .lead{font-size:clamp(1.05rem,1.5vw,1.28rem);line-height:1.95;color:var(--ink);font-weight:400}
+
+  .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.08em;
+    padding:15px 32px;border-radius:999px;border:1px solid var(--gold);background:var(--gold);color:var(--navy);
+    cursor:pointer;transition:background .5s var(--ease),color .5s var(--ease),transform .5s var(--ease),border-color .5s var(--ease)}
+  .btn:hover{background:transparent;color:var(--gold);transform:translateY(-2px)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost.light{color:var(--cream);border-color:var(--line-d)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* Header */
+  header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .6s var(--ease),border-color .6s var(--ease)}
+  header{border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(10,28,48,.9);backdrop-filter:blur(12px);border-bottom-color:var(--line-d)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--cream);font-weight:700;font-size:17px;letter-spacing:.16em}
+  .brand img{width:34px;height:34px;object-fit:contain}
+  .brand small{display:block;font-size:9px;letter-spacing:.4em;color:var(--gold);font-weight:500}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-size:14px;letter-spacing:.1em;color:var(--cream);opacity:.82;transition:opacity .3s,color .3s;position:relative}
+  .nav-links a:hover{opacity:1;color:var(--gold)}
+  .hamburger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+  .hamburger span{display:block;width:24px;height:1.6px;background:var(--cream);margin:5px auto;transition:.3s}
+
+  #mobilenav{position:fixed;inset:0;z-index:99;background:var(--navy);display:flex;flex-direction:column;justify-content:center;gap:4px;padding:0 var(--pad);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+  #mobilenav.open{opacity:1;visibility:visible}
+  #mobilenav a{font-size:1.7rem;font-weight:500;letter-spacing:.1em;color:var(--cream);padding:12px 0;border-bottom:1px solid var(--line-d)}
+  #mobilenav .btn{margin-top:26px;align-self:flex-start}
+
+  /* Hero — theatrical full-bleed */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;background:var(--navy);overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--navy)}
+  .hero-carousel{position:absolute;inset:0}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s var(--ease)}
+  .slide.is-active{opacity:1}
+  .slide img{width:100%;height:100%;object-fit:cover;object-position:center 20%}
+  .slide.is-active img{animation:kenburns 7s ease-out both}
+  @keyframes kenburns{0%{transform:scale(1.05)}100%{transform:scale(1.17)}}
+  .hero-cloud{position:absolute;inset:-12%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+    background:radial-gradient(42% 52% at 22% 28%,rgba(63,167,224,.30),transparent 62%),
+      radial-gradient(48% 58% at 80% 72%,rgba(28,74,114,.55),transparent 62%);
+    animation:cloud 34s ease-in-out infinite alternate}
+  @keyframes cloud{0%{transform:translate(-3%,-2%) scale(1)}100%{transform:translate(3%,3%) scale(1.14)}}
+  .hero-bg::after{content:"";position:absolute;inset:0;z-index:2;background:
+    linear-gradient(180deg,rgba(10,28,48,.42) 0%,rgba(10,28,48,.08) 30%,rgba(10,28,48,.5) 66%,rgba(10,28,48,.95) 100%),
+    linear-gradient(75deg,rgba(10,28,48,.72) 0%,rgba(10,28,48,.3) 34%,transparent 60%)}
+  .hero-bg::before{content:"";position:absolute;inset:0;z-index:3;
+    background:radial-gradient(120% 80% at 28% 120%,rgba(63,167,224,.20),transparent 60%)}
+  .hero-content{position:relative;z-index:4;padding-bottom:clamp(54px,8vw,110px);color:var(--cream);max-width:920px}
+  .hero-dots{display:flex;gap:10px;margin-top:clamp(30px,4vw,46px)}
+  .hero-dots .dot{width:36px;height:3px;border-radius:3px;background:rgba(224,239,250,.32);border:0;padding:0;cursor:pointer;transition:background .4s var(--ease),width .4s var(--ease)}
+  .hero-dots .dot.is-active{background:var(--gold);width:56px}
+  .hero-dots .dot:hover{background:var(--gold-soft)}
+  .hero .title{font-family:var(--serif);font-weight:500;letter-spacing:.22em;line-height:1.02;font-size:clamp(3.4rem,12.5vw,9.5rem);color:var(--white);text-indent:.22em}
+  .hero .title-en{font-family:var(--sans);font-weight:700;letter-spacing:.5em;font-size:clamp(.85rem,2vw,1.2rem);color:var(--gold);text-indent:.5em;margin-top:16px}
+  .hero .roles{display:flex;flex-wrap:wrap;gap:10px 0;margin:26px 0 32px;font-size:clamp(.95rem,1.6vw,1.15rem);letter-spacing:.12em;color:var(--cream)}
+  .hero .roles span{display:inline-flex;align-items:center}
+  .hero .roles span:not(:last-child)::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);margin:0 16px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .scroll-hint{position:absolute;right:var(--pad);bottom:clamp(54px,8vw,110px);z-index:2;writing-mode:vertical-rl;
+    letter-spacing:.3em;font-size:11px;color:var(--gold);text-transform:uppercase}
+
+  /* Section heads */
+  .head{max-width:760px;margin-bottom:clamp(44px,5vw,72px)}
+  .head h2{margin-top:20px}
+  .head.center{margin-inline:auto;text-align:center}
+  .head.center .eyebrow{justify-content:center}
+
+  /* sections on navy */
+  .on-navy{background:var(--navy);color:var(--cream)}
+  .on-navy h2{color:var(--white)}
+  .on-navy p{color:rgba(224,239,250,.66)}
+  .on-cream-2{background:var(--cream-2)}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(34px,5vw,76px);align-items:center}
+  .about-figure{position:relative}
+  .about-figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .about-figure .frame{position:absolute;inset:14px;border:1px solid var(--gold);pointer-events:none}
+  .about-figure img.cool{filter:saturate(.92) brightness(1.04) contrast(1.02)}
+  /* Studio gallery */
+  .studio-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,26px)}
+  .studio-fig{position:relative;overflow:hidden}
+  .studio-fig img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .8s var(--ease)}
+  .studio-fig:hover img{transform:scale(1.05)}
+  .studio-fig::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(63,167,224,.10),rgba(10,28,48,.16));mix-blend-mode:multiply}
+  .studio-fig figcaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:32px 20px 18px;color:var(--cream);
+    background:linear-gradient(transparent,rgba(10,28,48,.86))}
+  .studio-fig figcaption .en{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+  .studio-fig figcaption h3{font-size:1.05rem;color:#fff;font-weight:500}
+  @media(max-width:1024px){.studio-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.studio-grid{grid-template-columns:1fr;max-width:460px;margin-inline:auto}}
+  .about-body p{font-size:1.06rem;line-height:1.95;color:var(--ink);margin-bottom:18px}
+  .about-body .b{color:var(--gold-deep);font-weight:700}
+  .stat-row{display:flex;gap:48px;margin-top:36px;flex-wrap:wrap}
+  .stat .n{font-size:2.4rem;font-weight:500;color:var(--gold-deep);letter-spacing:.04em;line-height:1}
+  .stat .l{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+
+  /* Services */
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-l);border:1px solid var(--line-l)}
+  .svc{background:var(--cream);padding:38px 32px;transition:background .5s var(--ease)}
+  .svc:hover{background:var(--white)}
+  .svc .num{font-size:12px;letter-spacing:.2em;color:var(--gold-deep);font-weight:700}
+  .svc h3{margin:14px 0 8px}
+  .svc .en{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);opacity:.7}
+  .svc p{font-size:14.5px;line-height:1.85;margin-top:12px}
+  .svc.feature{background:var(--navy);color:var(--cream)}
+  .svc.feature h3{color:var(--white)}
+  .svc.feature p{color:rgba(224,239,250,.7)}
+  .svc.feature .num,.svc.feature .en{color:var(--gold)}
+  .svc .badge{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:4px 11px}
+  @media(max-width:820px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.svc-grid{grid-template-columns:1fr}}
+
+  /* Works */
+  .works-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(14px,1.6vw,22px)}
+  .case{position:relative;overflow:hidden;display:block}
+  .case img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+  .case:hover img{transform:scale(1.06)}
+  .case .cap{position:absolute;left:0;right:0;bottom:0;padding:34px 22px 20px;
+    background:linear-gradient(transparent,rgba(10,28,48,.9));color:var(--cream);
+    opacity:0;transform:translateY(12px);transition:.5s var(--ease)}
+  .case:hover .cap,.case:focus-within .cap{opacity:1;transform:none}
+  .case .cap .en{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:3px}
+  .case .cap h3{font-size:1.05rem;color:var(--white)}
+  .case.a{grid-column:span 3;aspect-ratio:3/2}
+  .case.b{grid-column:span 3;aspect-ratio:3/2}
+  .case.c{grid-column:span 2;aspect-ratio:3/4}
+  .case.d{grid-column:span 2;aspect-ratio:3/4}
+  .case.e{grid-column:span 2;aspect-ratio:3/4}
+  @media(max-width:820px){.works-grid{grid-template-columns:repeat(2,1fr)}.case.a,.case.b,.case.c,.case.d,.case.e{grid-column:span 1;aspect-ratio:3/4}}
+
+  /* Pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  .plans.duo{grid-template-columns:repeat(2,1fr);max-width:900px;margin-inline:auto}
+  .price-sub{max-width:900px;margin:clamp(34px,4vw,52px) auto clamp(20px,2vw,26px);text-align:center;
+    font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:500;color:var(--ink);letter-spacing:.04em}
+  .plan{background:var(--white);border:1px solid var(--line-l);padding:38px 32px;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+  .plan:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(28,37,48,.12)}
+  .plan.feature{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+  .plan .name{font-size:1.2rem;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .plan.feature .name{color:var(--white)}
+  .plan .star{font-size:10px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:3px 9px}
+  .plan .desc{font-size:13.5px;color:var(--ink-soft);margin-top:6px;min-height:40px}
+  .plan.feature .desc{color:rgba(224,239,250,.7)}
+  .plan .price{font-size:2.2rem;font-weight:500;color:var(--gold-deep);letter-spacing:.02em;margin:18px 0 6px;line-height:1}
+  .plan.feature .price{color:var(--gold)}
+  .plan .price small{font-size:13px;color:var(--ink-soft);font-weight:400}
+  .plan.feature .price small{color:rgba(224,239,250,.7)}
+  .plan ul{margin:20px 0 28px;display:flex;flex-direction:column;gap:11px}
+  .plan li{font-size:14.5px;color:var(--ink-soft);padding-left:22px;position:relative}
+  .plan.feature li{color:rgba(224,239,250,.82)}
+  .plan li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:9px;border:1px solid var(--gold);transform:rotate(45deg)}
+  .plan .btn{margin-top:auto;justify-content:center;width:100%}
+  .plan:not(.feature) .btn{background:transparent;color:var(--ink);border-color:var(--ink)}
+  .plan:not(.feature) .btn:hover{background:var(--navy);color:var(--cream);border-color:var(--navy)}
+  .price-note{text-align:center;color:var(--gold-deep);font-size:12.5px;margin-top:26px;letter-spacing:.06em}
+  @media(max-width:820px){.plans,.plans.duo{grid-template-columns:1fr;max-width:460px;margin-inline:auto}}
+
+  /* Reviews */
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .rev{padding:34px 30px;border-top:2px solid var(--gold)}
+  .rev .q{font-size:2.4rem;color:var(--gold);line-height:.7;font-weight:700}
+  .rev p{font-size:1rem;line-height:1.85;color:var(--ink);margin:14px 0 22px}
+  .rev .who{font-size:13px;letter-spacing:.04em;color:var(--ink-soft)}
+  .rev .who b{color:var(--ink);font-weight:700}
+  @media(max-width:820px){.rev-grid{grid-template-columns:1fr;max-width:540px;margin-inline:auto}}
+
+  /* Tips (navy) */
+  .tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(26px,3vw,52px)}
+  .tip{border-top:1px solid var(--line-d);padding-top:20px}
+  .tip .n{font-size:12px;letter-spacing:.16em;color:var(--gold);margin-bottom:12px}
+  .tip h3{color:var(--white);margin-bottom:10px}
+  .tip p{font-size:14.5px;color:rgba(224,239,250,.66)}
+  @media(max-width:760px){.tips-grid{grid-template-columns:1fr}}
+
+  /* FAQ */
+  .faq{max-width:860px;margin-inline:auto;border-top:1px solid var(--line-l)}
+  .faq-item{border-bottom:1px solid var(--line-l)}
+  .faq-q{width:100%;background:none;border:0;font-family:var(--sans);color:var(--ink);text-align:left;cursor:pointer;
+    font-size:clamp(1.05rem,1.6vw,1.25rem);font-weight:500;letter-spacing:.03em;padding:26px 46px 26px 0;position:relative}
+  .faq-q::after{content:"＋";position:absolute;right:6px;top:50%;transform:translateY(-50%);color:var(--gold-deep);font-size:1.3rem;transition:transform .4s var(--ease)}
+  .faq-q[aria-expanded="true"]::after{transform:translateY(-50%) rotate(135deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease),padding .5s var(--ease)}
+  .faq-a.open{max-height:360px;padding-bottom:26px}
+  .faq-a p{color:var(--ink-soft);font-size:15px;max-width:72ch}
+
+  /* Contact */
+  .contact .eyebrow{color:var(--gold)}
+  .contact h2{color:var(--white)}
+  .contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,72px);align-items:center}
+  .contact .lead{color:var(--cream)}
+  .contact-info{display:grid;gap:1px;background:var(--line-d);border:1px solid var(--line-d)}
+  .contact-info .row{background:var(--navy);padding:18px 24px;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .contact-info .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .contact-info .v{font-size:15px;color:var(--cream);text-align:right}
+  .contact-info a:hover{color:var(--gold)}
+  @media(max-width:820px){.contact-grid{grid-template-columns:1fr}}
+
+  /* Footer */
+  footer{background:var(--navy);color:var(--cream);padding-block:clamp(46px,5vw,72px);border-top:1px solid var(--line-d)}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:22px}
+  .foot .brand{color:var(--cream)}
+  .foot-links{display:flex;gap:24px}
+  .foot-links a{color:rgba(224,239,250,.66);font-size:14px;letter-spacing:.04em}
+  .foot-links a:hover{color:var(--gold)}
+  .copyright{color:rgba(224,239,250,.4);font-size:12.5px;text-align:center;margin-top:30px;letter-spacing:.08em}
+
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+  [data-reveal].in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .about-grid{grid-template-columns:1fr;gap:36px}
+    .about-figure{max-width:440px}
+    .nav-links{display:none}
+    .nav > .btn{display:none}
+    .hamburger{display:block}
+    .scroll-hint{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition:none!important;animation:none!important}
+    [data-reveal]{opacity:1;transform:none}
+    .hero-vid,.hero-cloud{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="福亨攝影 首頁">
+      <img src="Fu-Heng_Logo.png" alt="福亨攝影 logo">
+      <span>福亨攝影<small>FU HENG</small></span>
+    </a>
+    <nav class="nav-links" aria-label="主選單">
+      <a href="#about">關於</a>
+      <a href="#services">服務</a>
+      <a href="#works">作品</a>
+      <a href="#studio">工作室</a>
+      <a href="#pricing">價格</a>
+      <a href="#faq">問答</a>
+      <a href="#contact">聯絡</a>
+    </nav>
+    <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobilenav" aria-label="開啟選單"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<nav id="mobilenav" aria-label="行動選單">
+  <a href="#about">關於</a>
+  <a href="#services">服務</a>
+  <a href="#works">作品</a>
+  <a href="#studio">工作室</a>
+  <a href="#pricing">價格</a>
+  <a href="#faq">問答</a>
+  <a href="#contact">聯絡</a>
+  <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
+</nav>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-bg">
+      <div class="hero-carousel" aria-hidden="true">
+        <figure class="slide is-active"><img src="hero.png" alt=""></figure>
+        <figure class="slide"><img src="work-headshot.png" alt=""></figure>
+        <figure class="slide"><img src="work-lifestyle.png" alt=""></figure>
+      </div>
+      <span class="hero-cloud" aria-hidden="true"></span>
+    </div>
+    <div class="wrap hero-content">
+      <div data-reveal>
+        <span class="eyebrow light">Photography Studio — Taipei</span>
+      </div>
+      <h1 class="title" data-reveal>福亨攝影</h1>
+      <div class="title-en" data-reveal>FU&nbsp;&nbsp;HENG</div>
+      <div class="roles" data-reveal>
+        <span>證件照</span><span>大頭照</span><span>人像攝影</span><span>空姐應試照</span><span>生活攝影</span>
+      </div>
+      <div class="hero-cta" data-reveal>
+        <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">加 LINE 預約拍攝</a>
+        <a class="btn ghost light" href="#works">瀏覽作品</a>
+      </div>
+      <div class="hero-dots" data-reveal role="tablist" aria-label="作品輪播">
+        <button class="dot is-active" type="button" aria-label="第 1 張：專業棚拍"></button>
+        <button class="dot" type="button" aria-label="第 2 張：大頭照"></button>
+        <button class="dot" type="button" aria-label="第 3 張：生活休閒"></button>
+      </div>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <figure class="about-figure" data-reveal>
+        <img class="cool" src="photographer-real.jpg" alt="福亨攝影攝影師林先生本人肖像">
+        <span class="frame"></span>
+      </figure>
+      <div class="about-body" data-reveal>
+        <span class="eyebrow">About — 關於</span>
+        <h2 style="margin:20px 0 26px">為你留下，<br>最自然的樣子</h2>
+        <p>我是<span class="b">林先生</span>。三十多年來，我看著攝影從底片走到數位，也在這條路上找到另一個<span class="b">屬於大眾的藝術</span>——讓每個人，都能輕鬆擁有一張喜歡自己的照片。</p>
+        <p>拍照那天會緊張很正常。所以從服裝、妝髮到表情，我會一步步提醒、慢慢帶；不趕時間，直到你看著螢幕說「就是這張」。許多準備<span class="b">空姐應試</span>的女孩，也是這樣被我們陪著，拍出了錄取的第一步。</p>
+        <div class="stat-row">
+          <div class="stat"><div class="n">30+</div><div class="l">Years 資歷</div></div>
+          <div class="stat"><div class="n">1:1</div><div class="l">細心引導</div></div>
+          <div class="stat"><div class="n">予約</div><div class="l">不趕場</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="on-cream-2">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow">Services — 服務</span>
+        <h2>從一張證件照，<br>到一段人生紀錄</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc" data-reveal><div class="num">01</div><h3>證件照</h3><div class="en">ID / Passport</div><p>護照、簽證、履歷、各式報名專用。精修與一般修，給你端正又有精神的標準照。</p></div>
+        <div class="svc" data-reveal><div class="num">02</div><h3>大頭照 / 形象照</h3><div class="en">Headshot</div><p>求職、名片、個人品牌。專業打光與表情引導，呈現可信賴又有溫度的你。</p></div>
+        <div class="svc feature" data-reveal><div class="num">03</div><h3>空姐應試照</h3><div class="en">Cabin Crew</div><p>多年航空應試經驗，含妝髮與儀態造型指導。從髮絲到笑容弧度，陪你準備好錄取的那一張。</p><span class="badge">招牌 Signature</span></div>
+        <div class="svc" data-reveal><div class="num">04</div><h3>人像攝影</h3><div class="en">Portrait</div><p>個人寫真、藝術人像。捕捉光影裡最自在、最像自己的神情。</p></div>
+        <div class="svc" data-reveal><div class="num">05</div><h3>生活攝影</h3><div class="en">Lifestyle</div><p>外拍、日常紀錄、情侶與閨蜜。把溫度與故事，留在自然的瞬間。</p></div>
+        <div class="svc" data-reveal><div class="num">06</div><h3>全家福合影</h3><div class="en">Family</div><p>三代同堂、寶寶寫真、紀念日。為家人之間的愛，留一張可以掛在牆上的照片。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works -->
+  <section id="works" class="on-navy">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow light">Selected Works — 作品集</span>
+        <h2>每一張，都是一次安心的對話</h2>
+      </div>
+      <div class="works-grid">
+        <a class="case a" href="#contact" data-reveal><img src="work-lifestyle.png" alt="生活紀錄作品"><span class="cap"><span class="en">Lifestyle</span><h3>生活紀錄</h3></span></a>
+        <a class="case b" href="#contact" data-reveal><img src="photographer-portrait.png" alt="形象肖像作品"><span class="cap"><span class="en">Portrait</span><h3>形象肖像</h3></span></a>
+        <a class="case c" href="#contact" data-reveal><img src="work-id.png" alt="標準證件照作品"><span class="cap"><span class="en">ID Photo</span><h3>標準證件照</h3></span></a>
+        <a class="case d" href="#contact" data-reveal><img src="work-headshot.png" alt="專業形象照作品"><span class="cap"><span class="en">Headshot</span><h3>專業形象照</h3></span></a>
+        <a class="case e" href="#contact" data-reveal><img src="work-portrait.png" alt="光影人像作品"><span class="cap"><span class="en">Fine Art</span><h3>光影人像</h3></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio -->
+  <section id="studio" class="on-cream-2">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow">Studio &amp; Daily — 工作室・日常</span>
+        <h2>我們拍照的地方</h2>
+        <p class="lead">明亮的棚拍空間、藏在詔安街巷弄裡的門市、細心準備的妝髮區，還有鏡頭外的日常。</p>
+      </div>
+      <div class="studio-grid">
+        <figure class="studio-fig" data-reveal><img src="studio.png" alt="福亨攝影 明亮專業棚拍空間"><figcaption><span class="en">Studio</span><h3>棚拍空間</h3></figcaption></figure>
+        <figure class="studio-fig" data-reveal><img src="storefront.jpg" alt="福亨攝影 門市門口 詔安街"><figcaption><span class="en">Entrance</span><h3>詔安街 234 巷 17 號</h3></figcaption></figure>
+        <figure class="studio-fig" data-reveal><img src="makeup.jpg" alt="福亨攝影 妝髮準備區"><figcaption><span class="en">Hair &amp; Makeup</span><h3>妝髮準備區</h3></figcaption></figure>
+        <figure class="studio-fig" data-reveal><img src="casual.jpg" alt="攝影師的日常，公園與狗"><figcaption><span class="en">Off Duty</span><h3>鏡頭外的日常</h3></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow">Pricing — 證件照方案</span>
+        <h2>證件照，<br>兩種修圖任你選</h2>
+      </div>
+      <div class="plans duo">
+        <div class="plan" data-reveal>
+          <div class="name">一般修</div>
+          <div class="desc">修飾皮膚瑕疵，當天就能帶走</div>
+          <div class="price">NT$ 500</div>
+          <ul>
+            <li>修飾皮膚瑕疵（痘痘、泛紅）</li>
+            <li>專業打光與表情引導</li>
+            <li>沖洗多張＋電子檔</li>
+            <li>當日即可取件，立即拿到照片</li>
+          </ul>
+          <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a>
+        </div>
+        <div class="plan feature" data-reveal>
+          <div class="name">精修 <span class="star">細緻</span></div>
+          <div class="desc">在一般修之上，更講究對稱與膚質</div>
+          <div class="price">NT$ 800</div>
+          <ul>
+            <li>包含「一般修」所有項目</li>
+            <li>五官與臉部對稱微調</li>
+            <li>更細緻的膚質與光影處理</li>
+            <li>約 3–5 個工作天（一週內）交件</li>
+          </ul>
+          <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
+        </div>
+      </div>
+      <p class="price-sub" data-reveal>其他服務</p>
+      <div class="plans duo">
+        <div class="plan feature" data-reveal>
+          <div class="name">空姐應試照方案 <span class="star">招牌</span></div>
+          <div class="desc">航空應試專用，含造型指導</div>
+          <div class="price">NT$ 2,200 <small>起</small></div>
+          <ul><li>妝髮與儀態造型指導</li><li>全身＋半身＋大頭照</li><li>精修（符合航空規格）</li><li>高解析電子檔交付</li></ul>
+          <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 預約</a>
+        </div>
+        <div class="plan" data-reveal>
+          <div class="name">人像・形象方案</div>
+          <div class="desc">個人寫真、形象照、生活外拍</div>
+          <div class="price">NT$ 3,500 <small>起</small></div>
+          <ul><li>棚拍或外景擇一</li><li>多套服裝、多組光線</li><li>精選 5 張深度精修</li><li>全部原檔電子交付</li></ul>
+          <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">LINE 洽詢</a>
+        </div>
+      </div>
+      <p class="price-note">＊ 以上為示意價格，實際報價請依需求洽詢。</p>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="on-cream-2">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow">Testimonials — 客戶好評</span>
+        <h2>客戶的真心話</h2>
+      </div>
+      <div class="rev-grid">
+        <div class="rev" data-reveal><div class="q">&ldquo;</div><p>原本超怕拍應試照，林大哥從妝髮到笑容都細心提醒，過程一點都不緊張。後來真的收到錄取通知，太感謝了！</p><div class="who"><b>C 小姐</b> — 空服員錄取</div></div>
+        <div class="rev" data-reveal><div class="q">&ldquo;</div><p>拍證件照被誇「很像本人又很好看」。老師很有耐心，會一直調整到滿意為止，修圖也很自然不假。</p><div class="who"><b>林先生</b> — 護照證件照</div></div>
+        <div class="rev" data-reveal><div class="q">&ldquo;</div><p>帶長輩來拍全家福，攝影師很會帶氣氛，連最害羞的爸爸都笑得很自然。成品掛在客廳，每天看都開心。</p><div class="who"><b>王小姐</b> — 全家福</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tips -->
+  <section id="tips" class="on-navy">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow light">Before Your Shoot — 拍攝前小提醒</span>
+        <h2>狀態好，照片自然就好</h2>
+      </div>
+      <div class="tips-grid">
+        <div class="tip" data-reveal><div class="n">01 / 服裝</div><h3>服裝建議</h3><p>證件照建議帶有領、素色上衣，避免大圖案；應試照可多帶一套替換。</p></div>
+        <div class="tip" data-reveal><div class="n">02 / 妝髮</div><h3>妝髮與隱形眼鏡</h3><p>淡妝即可，髮絲整理乾淨；戴隱形眼鏡者建議提前適應，避免拍攝時泛紅。</p></div>
+        <div class="tip" data-reveal><div class="n">03 / 時間</div><h3>提早 10 分鐘到</h3><p>預留整理與放鬆的時間。本工作室採預約制，請先與我們約時間。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="head center" data-reveal>
+        <span class="eyebrow">Q &amp; A — 常見問題</span>
+        <h2>常見問題</h2>
+      </div>
+      <div class="faq" data-reveal>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">要怎麼預約拍攝？</button><div class="faq-a"><p>我們採預約制。最快的方式是加 LINE（ID：fuhengstudio）或來電 0908-260-129，告訴我們用途、人數與希望的時間，我們會幫你安排，並提醒拍攝前的準備事項。</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">拍照當天要穿什麼、怎麼準備？</button><div class="faq-a"><p>證件照建議素色、有領的上衣，避免太鮮豔的大圖案；應試照可多帶一套替換。當天現場也會再依需求協助微調，不用太擔心。</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">妝髮、隱形眼鏡需要注意嗎？</button><div class="faq-a"><p>淡妝即可，自然最好。若有戴隱形眼鏡，建議提前一點戴好適應，避免拍攝時眼睛泛紅。應試照方案另含妝髮與儀態造型指導。</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">「精修」和「一般修」差在哪？會給幾張？</button><div class="faq-a"><p>一般修會處理膚色、光線與雜訊，維持自然；精修則進一步針對細節做深度調整。給幾張依方案而定，現場可一起挑選，確認後再修。</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">多久可以取件？有提供電子檔嗎？</button><div class="faq-a"><p>證件照通常當日即可完成沖洗；人像與精修作品約需數個工作天。所有方案都會提供高解析電子檔。</p></div></div>
+        <div class="faq-item"><button class="faq-q" aria-expanded="false">可以帶長輩、小孩或寵物一起拍嗎？</button><div class="faq-a"><p>當然可以。全家福、寶寶寫真都很歡迎。我們會耐心帶氣氛，讓害羞的家人也能放鬆下來，拍出自然的笑容。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="on-navy contact">
+    <div class="wrap contact-grid">
+      <div data-reveal>
+        <span class="eyebrow light">Contact — 聯絡我們</span>
+        <h2 style="margin:18px 0 26px">準備好，拍一張<br>喜歡的自己了嗎？</h2>
+        <p class="lead" style="max-width:34ch;margin-bottom:30px">加 LINE 告訴我們你的需求，我們會親自回覆、細心安排。台北・預約制，期待與你相遇。</p>
+        <a class="btn" href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">加 LINE 預約拍攝</a>
+      </div>
+      <div class="contact-info" data-reveal>
+        <div class="row"><span class="k">LINE</span><span class="v"><a href="https://line.me/R/ti/p/@fuhengstudio" target="_blank" rel="noopener">@fuhengstudio</a></span></div>
+        <div class="row"><span class="k">Tel 電話</span><span class="v"><a href="tel:0908260129">0908-260-129</a></span></div>
+        <div class="row"><span class="k">Email</span><span class="v"><a href="mailto:fuhengstudio@gmail.com">fuhengstudio@gmail.com</a></span></div>
+        <div class="row"><span class="k">Address 地址</span><span class="v">台北市中正區詔安街 234 巷 17 號</span></div>
+        <div class="row"><span class="k">Hours 營業</span><span class="v">平日 12:30 – 21:30（預約制）</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#top" aria-label="福亨攝影 首頁">
+        <img src="Fu-Heng_Logo.png" alt="福亨攝影 logo">
+        <span>福亨攝影<small style="color:var(--gold)">FU HENG</small></span>
+      </a>
+      <div class="foot-links">
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="Facebook">Facebook</a>
+        <a href="#top">回到頂端 ↑</a>
+      </div>
+    </div>
+    <p class="copyright">© 2026 福亨攝影 FU HENG ・ 你完美證件照的誕生地 ・ 台北・預約制</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero carousel — Ken Burns cross-fade between 3 shots
+  (function(){
+    var slides=[].slice.call(document.querySelectorAll(".hero-carousel .slide"));
+    var dots=[].slice.call(document.querySelectorAll(".hero-dots .dot"));
+    if(slides.length<2) return;
+    var i=0, timer=null;
+    function show(n){
+      n=(n+slides.length)%slides.length;
+      slides[i].classList.remove("is-active"); if(dots[i]) dots[i].classList.remove("is-active");
+      i=n;
+      slides[i].classList.add("is-active"); if(dots[i]) dots[i].classList.add("is-active");
+    }
+    function start(){ if(reduce) return; stop(); timer=setInterval(function(){ show(i+1); },5000); }
+    function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+    dots.forEach(function(d,idx){ d.addEventListener("click",function(){ show(idx); start(); }); });
+    start();
+    document.addEventListener("visibilitychange",function(){ document.hidden?stop():start(); });
+  })();
+
+  var header = document.getElementById("site-header");
+  function onScroll(){ header.classList.toggle("scrolled", window.scrollY > 60); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  var burger = document.getElementById("hamburger");
+  var mnav = document.getElementById("mobilenav");
+  function setNav(open){
+    mnav.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  burger.addEventListener("click", function(){ setNav(!mnav.classList.contains("open")); });
+  mnav.addEventListener("click", function(e){ if(e.target.tagName === "A") setNav(false); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && mnav.classList.contains("open")){ setNav(false); burger.focus(); } });
+
+  var revealEls = document.querySelectorAll("[data-reveal]");
+  if(reduce || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, {threshold:0.1, rootMargin:"0px 0px -6% 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  document.querySelectorAll(".faq-q").forEach(function(q){
+    q.addEventListener("click", function(){
+      var expanded = q.getAttribute("aria-expanded") === "true";
+      q.setAttribute("aria-expanded", expanded ? "false" : "true");
+      q.nextElementSibling.classList.toggle("open", !expanded);
+    });
+  });
+})();
+</script>
+</body>
+</html>
