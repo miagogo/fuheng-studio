@@ -159,34 +159,62 @@
     function topen(n){tshow(n);tlb.classList.add('open');document.body.style.overflow='hidden';}
     function tclose(){tlb.classList.remove('open');document.body.style.overflow='';}
 
-    // --- duplicate the set once so we can wrap seamlessly past the last card ---
-    origCards.forEach(function(c){var cl=c.cloneNode(true);cl.classList.add('tclone');cl.setAttribute('aria-hidden','true');track.appendChild(cl);});
+    // --- clone one set on each side so arrows & drag can wrap seamlessly ---
+    var preFrag=document.createDocumentFragment(),postFrag=document.createDocumentFragment();
+    origCards.forEach(function(c){
+      var a=c.cloneNode(true);a.classList.add('tclone');a.setAttribute('aria-hidden','true');preFrag.appendChild(a);
+      var b=c.cloneNode(true);b.classList.add('tclone');b.setAttribute('aria-hidden','true');postFrag.appendChild(b);
+    });
+    track.insertBefore(preFrag,origCards[0]);
+    track.appendChild(postFrag);
     [].slice.call(track.querySelectorAll('.tclone .tcard-hit')).forEach(function(h){h.setAttribute('tabindex','-1');});
 
-    // open lightbox from any card (original or clone) via its index
-    [].slice.call(track.querySelectorAll('.tcard-hit')).forEach(function(h){h.addEventListener('click',function(){topen(parseInt(h.closest('.tcard').dataset.idx,10)||0);});});
-
-    // --- arrow-driven infinite carousel (transform based, seamless wrap) ---
+    // --- infinite carousel: arrows + pointer drag, seamless wrap ---
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var N=origCards.length, DUR=reduce?0:520, pos=0, step=0, busy=false;
-    function measure(){step=origCards[1]?(origCards[1].offsetLeft-origCards[0].offsetLeft):origCards[0].offsetWidth;}
-    function apply(animate){track.style.transition=animate?('transform '+DUR+'ms cubic-bezier(.4,0,.2,1)'):'none';track.style.transform='translateX('+(-pos*step)+'px)';}
-    measure();apply(false);
-    function next(){
-      if(busy)return;busy=true;
-      pos++;apply(true);
-      setTimeout(function(){if(pos>=N){pos=0;apply(false);}busy=false;},DUR+40);
-    }
-    function prev(){
-      if(busy)return;busy=true;
-      if(pos<=0){pos=N;apply(false);void track.offsetWidth;pos=N-1;apply(true);} // jump to identical frame, then slide back
-      else{pos--;apply(true);}
-      setTimeout(function(){busy=false;},DUR+40);
-    }
+    var N=origCards.length,DUR=reduce?0:480,step=0,setW=0,pos=0,busy=false;
+    function measure(){step=origCards[1]?(origCards[1].offsetLeft-origCards[0].offsetLeft):origCards[0].offsetWidth;setW=N*step;}
+    function offFor(p){return -(setW+p*step);}                 // originals live in the middle set
+    function setX(px,animate){track.style.transition=animate?('transform '+DUR+'ms cubic-bezier(.4,0,.2,1)'):'none';track.style.transform='translateX('+px+'px)';}
+    function applyPos(animate){setX(offFor(pos),animate);}
+    function normalize(){pos=((pos%N)+N)%N;applyPos(false);}    // snap index back into the middle set (invisible)
+    measure();applyPos(false);
+    function goTo(p){if(busy)return;busy=true;pos=p;applyPos(true);setTimeout(function(){normalize();busy=false;},DUR+40);}
     var pbtn=document.getElementById('tcarPrev'),nbtn=document.getElementById('tcarNext');
-    if(nbtn)nbtn.addEventListener('click',next);
-    if(pbtn)pbtn.addEventListener('click',prev);
-    window.addEventListener('resize',function(){measure();track.style.transition='none';track.style.transform='translateX('+(-pos*step)+'px)';});
+    if(nbtn)nbtn.addEventListener('click',function(){goTo(pos+1);});
+    if(pbtn)pbtn.addEventListener('click',function(){goTo(pos-1);});
+    window.addEventListener('resize',function(){measure();applyPos(false);});
+
+    // --- pointer drag (mouse + touch) ---
+    var dragging=false,startX=0,baseX=0,moved=0;
+    track.addEventListener('pointerdown',function(e){
+      if(busy||(e.button&&e.button>0))return;
+      dragging=true;moved=0;startX=e.clientX;baseX=offFor(pos);
+      track.style.transition='none';track.classList.add('tdrag');
+    });
+    window.addEventListener('pointermove',function(e){
+      if(!dragging)return;
+      var dx=e.clientX-startX;
+      if(dx>setW)dx=setW;else if(dx<-setW)dx=-setW;
+      moved=Math.max(moved,Math.abs(dx));
+      setX(baseX+dx,false);
+    });
+    function endDrag(e){
+      if(!dragging)return;
+      dragging=false;track.classList.remove('tdrag');
+      var dx=((e&&e.clientX!=null)?e.clientX:startX)-startX;
+      if(Math.abs(dx)<6)return;                                 // treated as a tap → click handler opens lightbox
+      busy=true;pos=Math.round(pos-dx/step);applyPos(true);
+      setTimeout(function(){normalize();busy=false;},DUR+40);
+    }
+    window.addEventListener('pointerup',endDrag);
+    window.addEventListener('pointercancel',endDrag);
+
+    // open lightbox on tap; suppressed right after a drag
+    track.addEventListener('click',function(e){
+      var hit=e.target.closest&&e.target.closest('.tcard-hit');if(!hit)return;
+      if(moved>6){e.preventDefault();e.stopPropagation();return;}
+      topen(parseInt(hit.closest('.tcard').dataset.idx,10)||0);
+    });
 
     // --- lightbox controls ---
     document.getElementById('tlbClose').addEventListener('click',tclose);
