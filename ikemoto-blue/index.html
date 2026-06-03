@@ -12,1190 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      /* token names kept; values swapped brown→sky-blue */
-      --navy: #0A1C30;
-      --navy-2: #12304C;
-      --navy-3: #1C4A72;
-      --cream: #E9F1F8;
-      --cream-2: #D7E6F2;
-      --ink: #13212E;
-      --ink-soft: #516373;
-      --gold: #3FA7E0;
-      --gold-deep: #15689A;
-      --gold-soft: #BBE0F6;
-      --white: #ffffff;
-      --line-d: rgba(224, 239, 250, .16);
-      --line-l: rgba(19, 33, 46, .14);
-      --sans: "Noto Sans TC", sans-serif;
-      --serif: "Noto Serif TC", serif;
-      --maxw: 1280px;
-      --pad: clamp(20px, 5vw, 64px);
-      --ease: cubic-bezier(.22, .61, .36, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0
-    }
-
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden
-    }
-
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.9;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-      height: auto
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none
-    }
-
-    ul {
-      list-style: none
-    }
-
-    ::selection {
-      background: var(--gold);
-      color: var(--navy)
-    }
-
-    :focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px
-    }
-
-    .wrap {
-      max-width: var(--maxw);
-      margin-inline: auto;
-      padding-inline: var(--pad)
-    }
-
-    header .wrap,
-    footer .wrap {
-      max-width: none
-    }
-
-    section {
-      padding-block: clamp(80px, 11vw, 150px)
-    }
-
-    .eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .34em;
-      text-transform: uppercase;
-      color: var(--gold-deep);
-      display: inline-flex;
-      align-items: center;
-      gap: 12px
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 30px;
-      height: 1px;
-      background: var(--gold)
-    }
-
-    .on-navy .eyebrow,
-    .eyebrow.light {
-      color: var(--gold)
-    }
-
-    h2 {
-      font-family: var(--serif);
-      font-size: clamp(2.4rem, 6.2vw, 5.2rem);
-      font-weight: 500;
-      letter-spacing: .01em;
-      line-height: 1.12
-    }
-
-    h3 {
-      font-size: clamp(1.15rem, 1.7vw, 1.4rem);
-      font-weight: 500;
-      letter-spacing: .04em
-    }
-
-    p {
-      color: var(--ink-soft)
-    }
-
-    .lead {
-      font-size: clamp(1.05rem, 1.5vw, 1.28rem);
-      line-height: 1.95;
-      color: var(--ink);
-      font-weight: 400
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .6em;
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: .08em;
-      padding: 15px 32px;
-      border-radius: 999px;
-      border: 1px solid var(--gold);
-      background: var(--gold);
-      color: var(--navy);
-      cursor: pointer;
-      transition: background .5s var(--ease), color .5s var(--ease), transform .5s var(--ease), border-color .5s var(--ease)
-    }
-
-    .btn:hover {
-      background: transparent;
-      color: var(--gold);
-      transform: translateY(-2px)
-    }
-
-    .btn.ghost {
-      background: transparent;
-      color: var(--ink)
-    }
-
-    .btn.ghost.light {
-      color: var(--cream);
-      border-color: var(--line-d)
-    }
-
-    .btn.ghost:hover {
-      border-color: var(--gold);
-      color: var(--gold)
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 100;
-      transition: background .6s var(--ease), border-color .6s var(--ease)
-    }
-
-    header {
-      border-bottom: 1px solid transparent
-    }
-
-    header.scrolled {
-      background: rgba(10, 28, 48, .9);
-      backdrop-filter: blur(12px);
-      border-bottom-color: var(--line-d)
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 78px;
-      gap: 24px
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--cream);
-      font-weight: 700;
-      font-size: 17px;
-      letter-spacing: .16em
-    }
-
-    .brand img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      filter: invert(1);
-      mix-blend-mode: screen
-    }
-
-    .foot .brand img {
-      width: 54px;
-      height: 54px
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 30px
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      letter-spacing: .1em;
-      color: var(--cream);
-      opacity: .82;
-      transition: opacity .3s, color .3s;
-      position: relative
-    }
-
-    .nav-links a:hover {
-      opacity: 1;
-      color: var(--gold)
-    }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: 0;
-      width: 44px;
-      height: 44px;
-      cursor: pointer
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 1.6px;
-      background: var(--cream);
-      margin: 5px auto;
-      transition: .3s
-    }
-
-    #mobilenav {
-      position: fixed;
-      inset: 0;
-      z-index: 99;
-      background: var(--navy);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 4px;
-      padding: 0 var(--pad);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .4s, visibility .4s
-    }
-
-    #mobilenav.open {
-      opacity: 1;
-      visibility: visible
-    }
-
-    #mobilenav a {
-      font-size: 1.7rem;
-      font-weight: 500;
-      letter-spacing: .1em;
-      color: var(--cream);
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line-d)
-    }
-
-    #mobilenav .btn {
-      margin-top: 26px;
-      align-self: flex-start
-    }
-
-    /* Hero — theatrical full-bleed */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      align-items: flex-end;
-      background: var(--navy);
-      overflow: hidden
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      background: var(--navy)
-    }
-
-    .hero-carousel {
-      position: absolute;
-      inset: 0
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 1.6s var(--ease)
-    }
-
-    .slide.is-active {
-      opacity: 1
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%
-    }
-
-    .slide.is-active img {
-      animation: kenburns 7s ease-out both
-    }
-
-    @keyframes kenburns {
-      0% {
-        transform: scale(1.05)
-      }
-
-      100% {
-        transform: scale(1.17)
-      }
-    }
-
-    .hero-cloud {
-      position: absolute;
-      inset: -12%;
-      z-index: 1;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      opacity: .5;
-      background: radial-gradient(42% 52% at 22% 28%, rgba(63, 167, 224, .30), transparent 62%),
-        radial-gradient(48% 58% at 80% 72%, rgba(28, 74, 114, .55), transparent 62%);
-      animation: cloud 34s ease-in-out infinite alternate
-    }
-
-    @keyframes cloud {
-      0% {
-        transform: translate(-3%, -2%) scale(1)
-      }
-
-      100% {
-        transform: translate(3%, 3%) scale(1.14)
-      }
-    }
-
-    .hero-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      background:
-        linear-gradient(180deg, rgba(10, 28, 48, .42) 0%, rgba(10, 28, 48, .08) 30%, rgba(10, 28, 48, .5) 66%, rgba(10, 28, 48, .95) 100%),
-        linear-gradient(75deg, rgba(10, 28, 48, .72) 0%, rgba(10, 28, 48, .3) 34%, transparent 60%)
-    }
-
-    .hero-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      background: radial-gradient(120% 80% at 28% 120%, rgba(63, 167, 224, .20), transparent 60%)
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 4;
-      padding-left: var(--pad);
-      /* padding-bottom: clamp(54px, 8vw, 110px); */
-      color: var(--cream);
-      max-width: 920px
-    }
-
-    .hero-dots {
-      display: flex;
-      gap: 10px;
-      margin-top: clamp(30px, 4vw, 46px)
-    }
-
-    .hero-dots .dot {
-      width: 36px;
-      height: 3px;
-      border-radius: 3px;
-      background: rgba(224, 239, 250, .32);
-      border: 0;
-      padding: 0;
-      cursor: pointer;
-      transition: background .4s var(--ease), width .4s var(--ease)
-    }
-
-    .hero-dots .dot.is-active {
-      background: var(--gold);
-      width: 56px
-    }
-
-    .hero-dots .dot:hover {
-      background: var(--gold-soft)
-    }
-
-    .hero .title {
-      font-family: var(--serif);
-      font-weight: 500;
-      letter-spacing: .22em;
-      line-height: 1.02;
-      font-size: clamp(3.4rem, 12.5vw, 9.5rem);
-      color: var(--white);
-      text-indent: -0.18em
-    }
-
-    .hero .title-en {
-      font-family: var(--sans);
-      font-weight: 700;
-      letter-spacing: .5em;
-      font-size: clamp(.85rem, 2vw, 1.2rem);
-      color: var(--gold);
-      text-indent: .5em;
-      margin-top: 16px
-    }
-
-    .hero .roles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 0;
-      margin: 26px 0 32px;
-      font-size: clamp(.95rem, 1.6vw, 1.15rem);
-      letter-spacing: .12em;
-      color: var(--cream)
-    }
-
-    .hero .roles span {
-      display: inline-flex;
-      align-items: center
-    }
-
-    .hero .roles span:not(:last-child)::after {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--gold);
-      margin: 0 16px
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap
-    }
-
-    .scroll-hint {
-      position: absolute;
-      right: var(--pad);
-      bottom: clamp(54px, 8vw, 110px);
-      z-index: 2;
-      writing-mode: vertical-rl;
-      letter-spacing: .3em;
-      font-size: 11px;
-      color: var(--gold);
-      text-transform: uppercase
-    }
-
-    /* Section heads */
-    .head {
-      max-width: 760px;
-      margin-bottom: clamp(44px, 5vw, 72px)
-    }
-
-    .head h2 {
-      margin-top: 20px
-    }
-
-    .head .lead {
-      margin-top: clamp(14px, 1.8vw, 22px)
-    }
-
-    .head.center {
-      margin-inline: auto;
-      text-align: center
-    }
-
-    .head.center .eyebrow {
-      justify-content: center
-    }
-
-    /* sections on navy */
-    .on-navy {
-      background: var(--navy);
-      color: var(--cream)
-    }
-
-    .on-navy h2 {
-      color: var(--white)
-    }
-
-    .on-navy p {
-      color: rgba(224, 239, 250, .66)
-    }
-
-    .on-cream-2 {
-      background: var(--cream-2)
-    }
-
-    /* About */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(34px, 5vw, 76px);
-      align-items: center
-    }
-
-    .about-figure {
-      position: relative
-    }
-
-    .about-figure img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover
-    }
-
-    .about-figure .frame {
-      position: absolute;
-      inset: 14px;
-      border: 1px solid var(--gold);
-      pointer-events: none
-    }
-
-    .about-figure img.cool {
-      filter: saturate(.92) brightness(1.04) contrast(1.02)
-    }
-
-    /* Studio gallery */
-    .studio-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: clamp(16px, 2vw, 26px)
-    }
-
-    .studio-fig {
-      position: relative;
-      overflow: hidden
-    }
-
-    .studio-fig img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      transition: transform .8s var(--ease)
-    }
-
-    .studio-fig:hover img {
-      transform: scale(1.05)
-    }
-
-    .studio-fig::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(63, 167, 224, .10), rgba(10, 28, 48, .16));
-      mix-blend-mode: multiply
-    }
-
-    .studio-fig figcaption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      padding: 32px 20px 18px;
-      color: var(--cream);
-      background: linear-gradient(transparent, rgba(10, 28, 48, .86))
-    }
-
-    .studio-fig figcaption .en {
-      display: block;
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 3px
-    }
-
-    .studio-fig figcaption h3 {
-      font-size: 1.05rem;
-      color: #fff;
-      font-weight: 500
-    }
-
-    @media(max-width:1024px) {
-      .studio-grid {
-        grid-template-columns: repeat(2, 1fr)
-      }
-    }
-
-    @media(max-width:560px) {
-      .studio-grid {
-        grid-template-columns: 1fr;
-        max-width: 460px;
-        margin-inline: auto
-      }
-    }
-
-    .about-body p {
-      font-size: 1.06rem;
-      line-height: 1.95;
-      color: var(--ink);
-      margin-bottom: 18px
-    }
-
-    .about-body .b {
-      color: var(--gold-deep);
-      font-weight: 700
-    }
-
-    .stat-row {
-      display: flex;
-      gap: 48px;
-      margin-top: 36px;
-      flex-wrap: wrap
-    }
-
-    .stat .n {
-      font-size: 2.4rem;
-      font-weight: 500;
-      color: var(--gold-deep);
-      letter-spacing: .04em;
-      line-height: 1
-    }
-
-    .stat .l {
-      font-size: 12px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      margin-top: 6px
-    }
-
-    /* Tips (navy) */
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: clamp(26px, 3vw, 52px)
-    }
-
-    .tip {
-      border-top: 1px solid var(--line-d);
-      padding-top: 20px
-    }
-
-    .tip .n {
-      font-size: 12px;
-      letter-spacing: .16em;
-      color: var(--gold);
-      margin-bottom: 12px
-    }
-
-    .tip h3 {
-      color: var(--white);
-      margin-bottom: 10px
-    }
-
-    .tip p {
-      font-size: 14.5px;
-      color: rgba(224, 239, 250, .66)
-    }
-
-    @media(max-width:760px) {
-      .tips-grid {
-        grid-template-columns: 1fr
-      }
-    }
-
-    /* FAQ */
-    .faq {
-      max-width: 860px;
-      margin-inline: auto;
-      border-top: 1px solid var(--line-l)
-    }
-
-    .faq-item {
-      border-bottom: 1px solid var(--line-l)
-    }
-
-    .faq-q {
-      width: 100%;
-      background: none;
-      border: 0;
-      font-family: var(--sans);
-      color: var(--ink);
-      text-align: left;
-      cursor: pointer;
-      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-      font-weight: 500;
-      letter-spacing: .03em;
-      padding: 26px 46px 26px 0;
-      position: relative
-    }
-
-    .faq-q::after {
-      content: "＋";
-      position: absolute;
-      right: 6px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gold-deep);
-      font-size: 1.3rem;
-      transition: transform .4s var(--ease)
-    }
-
-    .faq-q[aria-expanded="true"]::after {
-      transform: translateY(-50%) rotate(135deg)
-    }
-
-    .faq-a {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .5s var(--ease), padding .5s var(--ease)
-    }
-
-    .faq-a.open {
-      max-height: 360px;
-      padding-bottom: 26px
-    }
-
-    .faq-a p {
-      color: var(--ink-soft);
-      font-size: 15px;
-      max-width: 72ch
-    }
-
-    /* Contact */
-    .contact .eyebrow {
-      color: var(--gold)
-    }
-
-    .contact h2 {
-      color: var(--white)
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: clamp(36px, 5vw, 72px);
-      align-items: center
-    }
-
-    .contact .lead {
-      color: var(--cream)
-    }
-
-    .contact-info {
-      display: grid;
-      gap: 1px;
-      background: var(--line-d);
-      border: 1px solid var(--line-d)
-    }
-
-    .contact-info .row {
-      background: var(--navy);
-      padding: 18px 24px;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: baseline
-    }
-
-    .contact-info .k {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--gold)
-    }
-
-    .contact-info .v {
-      font-size: 15px;
-      color: var(--cream);
-      text-align: right
-    }
-
-    .contact-info a:hover {
-      color: var(--gold)
-    }
-
-    @media(max-width:820px) {
-      .contact-grid {
-        grid-template-columns: 1fr
-      }
-    }
-
-    /* Footer */
-    footer {
-      background: var(--navy);
-      color: var(--cream);
-      padding-block: clamp(46px, 5vw, 72px);
-      border-top: 1px solid var(--line-d)
-    }
-
-    .foot {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 22px
-    }
-
-    .foot .brand {
-      color: var(--cream)
-    }
-
-    .foot-links {
-      display: flex;
-      gap: 24px
-    }
-
-    .foot-links a {
-      color: rgba(224, 239, 250, .66);
-      font-size: 14px;
-      letter-spacing: .04em
-    }
-
-    .foot-links a:hover {
-      color: var(--gold)
-    }
-
-    .copyright {
-      color: rgba(224, 239, 250, .4);
-      font-size: 12.5px;
-      text-align: center;
-      margin-top: 30px;
-      letter-spacing: .08em
-    }
-
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 1s var(--ease), transform 1s var(--ease)
-    }
-
-    [data-reveal].in {
-      opacity: 1;
-      transform: none
-    }
-
-    @media(max-width:900px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 36px
-      }
-
-      .about-figure {
-        max-width: 440px
-      }
-
-      .nav-links {
-        display: none
-      }
-
-      .nav>.btn {
-        display: none
-      }
-
-      .hamburger {
-        display: block
-      }
-
-      .scroll-hint {
-        display: none
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce) {
-      html {
-        scroll-behavior: auto
-      }
-
-      * {
-        transition: none !important;
-        animation: none !important
-      }
-
-      [data-reveal] {
-        opacity: 1;
-        transform: none
-      }
-
-      .hero-vid,
-      .hero-cloud {
-        transform: none !important
-      }
-    }
-
-    /* Why-a-pro section */
-    .why-grid {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: clamp(34px, 5vw, 72px);
-      align-items: center
-    }
-
-    .why-copy p {
-      color: var(--ink-soft);
-      margin-bottom: 16px;
-      font-size: 1rem;
-      line-height: 1.95
-    }
-
-    .why-copy p.lead {
-      color: var(--ink);
-      margin-bottom: 22px
-    }
-
-    .why-fig img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover
-    }
-
-    .why-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: clamp(36px, 4vw, 56px)
-    }
-
-    .why-chips span {
-      border: 1px solid var(--gold);
-      color: var(--gold-deep);
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-size: 15px;
-      background: rgba(63, 167, 224, .07)
-    }
-
-    @media(max-width:860px) {
-      .why-grid {
-        grid-template-columns: 1fr
-      }
-
-      .why-fig {
-        max-width: 520px;
-        margin-inline: auto
-      }
-    }
-
-    /* Lightbox */
-    .lb {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: rgba(8, 12, 18, .95);
-      display: none;
-      align-items: center;
-      justify-content: center
-    }
-
-    .lb.open {
-      display: flex
-    }
-
-    .lb #lbImg {
-      max-width: 90vw;
-      max-height: 84vh;
-      object-fit: contain;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, .6)
-    }
-
-    .lb-btn {
-      position: absolute;
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .3);
-      color: #fff;
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      font-size: 26px;
-      line-height: 1;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      transition: background .25s, transform .25s
-    }
-
-    .lb-btn:hover {
-      background: rgba(255, 255, 255, .22)
-    }
-
-    .lb-prev {
-      left: 24px;
-      top: 50%;
-      transform: translateY(-50%)
-    }
-
-    .lb-next {
-      right: 24px;
-      top: 50%;
-      transform: translateY(-50%)
-    }
-
-    .lb-close {
-      top: 22px;
-      right: 22px;
-      width: 46px;
-      height: 46px;
-      font-size: 20px
-    }
-
-    .lb-cap {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 26px;
-      text-align: center;
-      color: #fff;
-      font-size: 14px;
-      letter-spacing: .06em
-    }
-
-    .lb-count {
-      position: absolute;
-      top: 28px;
-      left: 26px;
-      color: rgba(255, 255, 255, .7);
-      font-size: 13px;
-      letter-spacing: .12em
-    }
-
-    [data-lightbox] {
-      cursor: zoom-in
-    }
-
-    @media(max-width:600px) {
-      .lb-prev {
-        left: 8px
-      }
-
-      .lb-next {
-        right: 8px
-      }
-
-      .lb-btn {
-        width: 46px;
-        height: 46px
-      }
-    }
-  /* === Testimonials carousel === */
-  .tcar-wrap{position:relative;margin-top:clamp(30px,4vw,52px)}
-  .tcar{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:4px 4px 48px;-webkit-overflow-scrolling:touch}
-  .tcar::-webkit-scrollbar{height:6px}
-  .tcar::-webkit-scrollbar-track{background:transparent}
-  .tcar{scrollbar-color:var(--navy) transparent}
-  .tcar::-webkit-scrollbar-thumb{background:var(--navy);border-radius:3px}
-  .tcard{scroll-snap-align:start;flex:0 0 clamp(266px,78vw,330px);background:#fff;border:1px solid var(--line-l);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-  .tphoto{position:relative;cursor:zoom-in;overflow:hidden;aspect-ratio:4/5;background:var(--cream-2);border:0;padding:0;width:100%;display:block}
-  .tphoto img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
-  .tphoto:hover img{transform:scale(1.05)}
-  .tphoto .zoom{position:absolute;top:12px;right:12px;background:rgba(10,28,48,.62);color:#fff;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px}
-  .tbody{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1;text-align:left}
-  .tbody .stars{color:var(--gold);letter-spacing:2px;font-size:14px}
-  .tbody .ttext{color:var(--ink-soft);font-size:14.5px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-  .tbody .twho{margin-top:auto;font-size:13px;color:var(--ink);letter-spacing:.02em}
-  .tbody .twho b{font-weight:700}
-  .tcar-btn{position:absolute;top:38%;width:48px;height:48px;border-radius:50%;border:1px solid var(--line-l);background:#fff;color:var(--ink);cursor:pointer;display:grid;place-items:center;font-size:20px;z-index:3;transition:background .25s,color .25s;box-shadow:0 6px 20px rgba(19,33,46,.12)}
-  .tcar-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
-  .tcar-prev{left:-10px}.tcar-next{right:-10px}
-  @media(max-width:700px){.tcar-btn{display:none}}
-
-  /* Testimonial lightbox */
-  .tlb{position:fixed;inset:0;z-index:1001;background:rgba(8,12,18,.95);display:none;align-items:center;justify-content:center;padding:20px}
-  .tlb.open{display:flex}
-  .tlb-inner{position:relative;display:grid;grid-template-columns:auto minmax(280px,400px);max-width:94vw;max-height:88vh;background:var(--cream);border-radius:16px;overflow:hidden}
-  .tlb-inner img{height:88vh;max-width:48vw;object-fit:cover;background:#0a1c30}
-  .tlb-text{padding:clamp(26px,3vw,40px);color:var(--ink);display:flex;flex-direction:column;justify-content:center;overflow:auto}
-  .tlb-stars{color:var(--gold);font-size:20px;letter-spacing:4px;margin-bottom:16px}
-  .tlb-text p{color:var(--ink);font-size:1.02rem;line-height:1.95;margin-bottom:20px}
-  .tlb-who{color:var(--ink-soft);font-size:14px}
-  .tlb-who b{color:var(--ink);font-weight:700}
-  .tlb-count{position:absolute;top:18px;left:22px;color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.1em;z-index:2}
-  @media(max-width:760px){.tlb-inner{grid-template-columns:1fr;max-height:90vh;overflow:auto}.tlb-inner img{height:auto;max-width:90vw;max-height:46vh;width:100%}}
-
-  /* Contact map */
-
-  /* === Full-width sections (portfolio + testimonials) === */
-  .wrap-full{max-width:none;margin-inline:0;padding-inline:clamp(16px,3.5vw,48px)}
-  /* Editorial portfolio gallery — Ikemoto-style motion */
-  .gallery2{column-count:4;column-gap:20px}
-  .gallery2 .gitem{display:block;break-inside:avoid;margin:0 0 30px;position:relative;text-decoration:none;opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease);will-change:opacity,transform}
-  .gallery2 .gitem.show{opacity:1;transform:none}
-  .gallery2 .gitem.hide{display:none}
-  .gallery2 .gframe{display:block;position:relative;overflow:hidden;border-radius:12px;background:var(--navy-2);cursor:zoom-in}
-  .gallery2 .gframe::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(10,28,48,.4));opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
-  .gallery2 .gitem:hover .gframe::after{opacity:1}
-  .gallery2 .gpara{display:block}
-  .gallery2 .gpara img{width:100%;display:block;height:auto;transition:transform 1s var(--ease);will-change:transform}
-  .gallery2 .gitem:hover .gpara img{transform:scale(1.06)}
-  .gallery2 .gmeta{display:flex;align-items:baseline;gap:12px;padding:15px 4px 0}
-  .gallery2 .gtag{flex:none;font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-soft);border-radius:999px;padding:4px 11px;line-height:1;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
-  .gallery2 .gitem:hover .gtag{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-  .gallery2 .gtitle{font-family:var(--serif);font-size:1.02rem;color:var(--cream);font-weight:500;position:relative;line-height:1.4}
-  .gallery2 .gtitle::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--gold);transition:width .55s var(--ease)}
-  .gallery2 .gitem:hover .gtitle::after,.gallery2 .gitem:focus-visible .gtitle::after{width:100%}
-  .gallery2 .gitem:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:6px}
-  @media(prefers-reduced-motion:reduce){.gallery2 .gitem{transition:opacity .4s linear;transform:none}.gallery2 .gpara img{transition:none}}
-  /* Portfolio pager */
-  .pf-pager{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:clamp(28px,3vw,42px)}
-  .pf-page{font-family:var(--sans);font-size:14px;min-width:42px;height:42px;padding:0 13px;border-radius:999px;border:1px solid var(--line-d);background:transparent;color:rgba(224,239,250,.8);cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}
-  .pf-page:hover:not(:disabled){border-color:var(--gold-soft);color:var(--cream)}
-  .pf-page.is-active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-  .pf-page:disabled{opacity:.35;cursor:default}
-  .pf-pager .pf-gap{display:flex;align-items:flex-end;padding:0 4px 8px;color:rgba(224,239,250,.45);font-family:var(--sans);font-size:14px;user-select:none}
-  /* Guide / 拍攝說明 section */
-  .gtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:clamp(28px,3vw,44px)}
-  .gtab{font-family:var(--sans);font-size:15px;color:var(--ink-soft);background:#fff;border:1px solid var(--line-l);border-radius:999px;padding:11px 26px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
-  .gtab:hover{border-color:var(--gold)}
-  .gtab.is-active{background:var(--gold);color:#fff;border-color:var(--gold)}
-  .gpanel{display:none}
-  .gpanel.is-active{display:flex;flex-direction:column;animation:gfade .5s var(--ease)}
-  .gpanel .gcols{order:1}
-  .gpanel .plan-banner{order:2}
-  .gpanel .gnote{order:3}
-  @keyframes gfade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-  .gcols{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(18px,2.5vw,28px);max-width:1100px;margin-inline:auto}
-  @media(max-width:760px){.gcols{grid-template-columns:1fr}}
-  .gcard{background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:clamp(22px,3vw,30px)}
-  .gcard h3{font-family:var(--serif);font-size:1.2rem;color:var(--ink);margin-bottom:14px}
-  .gcard ul{display:flex;flex-direction:column;gap:9px}
-  .gcard li{position:relative;padding-left:18px;color:var(--ink-soft);font-size:14.5px;line-height:1.75}
-  .gcard li::before{content:"–";position:absolute;left:0;color:var(--gold)}
-  .gcard li.warn{color:#C0392B;font-weight:500}
-  .gcard li.warn::before{content:"⚠";color:#C0392B;left:-2px}
-  .gnote{max-width:1100px;margin:clamp(18px,2vw,26px) auto 0;font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.85}
-  /* merged service: intro + dark price banner */
-  .panel-intro{max-width:1000px;margin:0 auto clamp(18px,2vw,24px);text-align:center;color:var(--ink-soft);font-size:1.02rem;line-height:1.9}
-  .plan-banner{background:var(--navy);border-radius:14px;padding:clamp(20px,3vw,28px) clamp(22px,3vw,34px);display:flex;flex-wrap:wrap;align-items:center;gap:18px 36px;max-width:1100px;margin:clamp(24px,3vw,34px) auto 0}
-  .pb-item{display:flex;flex-direction:column;gap:3px}
-  .pb-item .pb-name{font-size:13px;letter-spacing:.06em;color:rgba(224,239,250,.72)}
-  .pb-item .pb-amt{font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:600;color:var(--gold);line-height:1.05}
-  .pb-item .pb-sub{font-size:12px;color:rgba(224,239,250,.55)}
-  .plan-banner .btn{margin-left:auto;white-space:nowrap}
-  .pb-note{flex-basis:100%;font-size:12.5px;color:rgba(224,239,250,.6);margin:0;letter-spacing:.02em}
-  @media(max-width:560px){.plan-banner .btn{margin-left:0;width:100%;justify-content:center}}
-  .gtransport{max-width:1100px;margin:clamp(20px,2.5vw,30px) auto 0;background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:clamp(22px,3vw,30px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  .gtransport h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px}
-  .gtransport p{font-size:14px;color:var(--ink-soft);line-height:1.8}
-  @media(max-width:760px){.gtransport{grid-template-columns:1fr}}
-  /* Location: map + transport */
-  .loc-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(18px,2.5vw,30px);margin-top:clamp(28px,3vw,44px);align-items:stretch}
-  .loc-map{border:1px solid var(--line-l);border-radius:14px;overflow:hidden;line-height:0}
-  .loc-map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
-  .gtransport-col{max-width:none;margin:0;grid-template-columns:1fr;align-content:start;gap:20px}
-  @media(max-width:860px){.loc-grid{grid-template-columns:1fr}.loc-map iframe{min-height:300px}}
-  @media(max-width:1100px){.gallery2{column-count:3}}
-  @media(max-width:700px){.gallery2{column-count:1}}
-  /* Portfolio filter tabs */
-  .pf-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:1100px;margin:0 auto clamp(26px,3vw,40px)}
-  .pf-tab{font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:rgba(224,239,250,.75);background:transparent;border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
-  .pf-tab:hover{color:var(--cream);border-color:var(--gold-soft)}
-  .pf-tab.is-active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -1203,7 +20,7 @@
   <header id="site-header">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="福亨攝影 首頁">
-        <img src="Fu-Heng_Logo.png" alt="福亨攝影 logo">
+        <img src="images/Fu-Heng_Logo.png" alt="福亨攝影 logo">
       </a>
       <nav class="nav-links" aria-label="主選單">
         <a href="#about">關於</a>
@@ -1233,9 +50,9 @@
     <section class="hero" id="top">
       <div class="hero-bg">
         <div class="hero-carousel" aria-hidden="true">
-          <figure class="slide is-active"><img src="hero.png" alt=""></figure>
-          <figure class="slide"><img src="work-headshot.png" alt=""></figure>
-          <figure class="slide"><img src="work-lifestyle.png" alt=""></figure>
+          <figure class="slide is-active"><img src="images/hero.png" alt=""></figure>
+          <figure class="slide"><img src="images/work-headshot.png" alt=""></figure>
+          <figure class="slide"><img src="images/work-lifestyle.png" alt=""></figure>
         </div>
         <span class="hero-cloud" aria-hidden="true"></span>
       </div>
@@ -1265,7 +82,7 @@
     <section id="about">
       <div class="wrap about-grid">
         <figure class="about-figure" data-reveal>
-          <img class="cool" src="photographer-portrait-2.jpg" alt="福亨攝影攝影師本人肖像">
+          <img class="cool" src="images/photographer-portrait-2.jpg" alt="福亨攝影攝影師本人肖像">
           <span class="frame"></span>
         </figure>
         <div class="about-body" data-reveal>
@@ -1310,26 +127,26 @@
           <button class="pf-tab" type="button" data-filter="grad">畢業照</button>
         </div>
         <div class="gallery2">
-          <a class="gitem" data-lightbox data-cat="grad" href="#"><span class="gframe"><span class="gpara"><img src="pf01.jpg" alt="福亨攝影 畢業學士服作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Graduation</span><span class="gtitle">畢業・學士服</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf02.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf03.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">應試形象照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf04.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf05.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="pf06.jpg" alt="福亨攝影 全家福合影作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Family</span><span class="gtitle">全家福合影</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf07.jpg" alt="福亨攝影 形象寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Portrait</span><span class="gtitle">形象寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="pf08.jpg" alt="福亨攝影 情侶寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Couple</span><span class="gtitle">情侶寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf09.jpg" alt="福亨攝影 個人寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Portrait</span><span class="gtitle">個人寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="crew" href="#"><span class="gframe"><span class="gpara"><img src="pf10.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Cabin Crew</span><span class="gtitle">空姐應試照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="pf11.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Wedding</span><span class="gtitle">婚紗寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="pf12.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Wedding</span><span class="gtitle">婚紗寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="grad" href="#"><span class="gframe"><span class="gpara"><img src="pf13.jpg" alt="福亨攝影 畢業照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Graduation</span><span class="gtitle">畢業照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf14.jpg" alt="福亨攝影 形象全身照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">形象全身照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="crew" href="#"><span class="gframe"><span class="gpara"><img src="pf15.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Cabin Crew</span><span class="gtitle">空姐應試照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf16.jpg" alt="福亨攝影 個性寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Creative</span><span class="gtitle">個性寫真</span></span></a>
-          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="pf17.jpg" alt="福亨攝影 證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="pf18.jpg" alt="福亨攝影 大頭證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件・大頭照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="pf19.jpg" alt="福亨攝影 證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件照</span></span></a>
-          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="pf20.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">應試形象照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="grad" href="#"><span class="gframe"><span class="gpara"><img src="images/pf01.jpg" alt="福亨攝影 畢業學士服作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Graduation</span><span class="gtitle">畢業・學士服</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf02.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf03.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">應試形象照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf04.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf05.jpg" alt="福亨攝影 形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Headshot</span><span class="gtitle">形象照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="images/pf06.jpg" alt="福亨攝影 全家福合影作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Family</span><span class="gtitle">全家福合影</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf07.jpg" alt="福亨攝影 形象寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Portrait</span><span class="gtitle">形象寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="images/pf08.jpg" alt="福亨攝影 情侶寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Couple</span><span class="gtitle">情侶寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf09.jpg" alt="福亨攝影 個人寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Portrait</span><span class="gtitle">個人寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="crew" href="#"><span class="gframe"><span class="gpara"><img src="images/pf10.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Cabin Crew</span><span class="gtitle">空姐應試照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="images/pf11.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Wedding</span><span class="gtitle">婚紗寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="wedding" href="#"><span class="gframe"><span class="gpara"><img src="images/pf12.jpg" alt="福亨攝影 婚紗寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Wedding</span><span class="gtitle">婚紗寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="grad" href="#"><span class="gframe"><span class="gpara"><img src="images/pf13.jpg" alt="福亨攝影 畢業照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Graduation</span><span class="gtitle">畢業照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf14.jpg" alt="福亨攝影 形象全身照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">形象全身照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="crew" href="#"><span class="gframe"><span class="gpara"><img src="images/pf15.jpg" alt="福亨攝影 空姐應試照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Cabin Crew</span><span class="gtitle">空姐應試照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf16.jpg" alt="福亨攝影 個性寫真作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Creative</span><span class="gtitle">個性寫真</span></span></a>
+          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="images/pf17.jpg" alt="福亨攝影 證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="images/pf18.jpg" alt="福亨攝影 大頭證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件・大頭照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="id" href="#"><span class="gframe"><span class="gpara"><img src="images/pf19.jpg" alt="福亨攝影 證件照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">ID Photo</span><span class="gtitle">證件照</span></span></a>
+          <a class="gitem" data-lightbox data-cat="profile" href="#"><span class="gframe"><span class="gpara"><img src="images/pf20.jpg" alt="福亨攝影 應試形象照作品" loading="lazy"></span></span><span class="gmeta"><span class="gtag">Profile</span><span class="gtitle">應試形象照</span></span></a>
         </div>
         <div class="pf-pager" id="pfPager" role="navigation" aria-label="作品分頁"></div>
       </div>
@@ -1348,7 +165,7 @@
             <p>自助機很方便：快速、便宜、即拍即拿，它的目的，是給你一張「符合規格」的照片。但專業人像攝影在意的，從來不只是規格，而是「你給人的感受」。鏡頭距離、光線方向、臉部比例、姿態、眼神，甚至嘴角的細微角度，都會影響別人對你的第一印象。</p>
             <p>手機與 AI 可以幫你修飾外表，卻很難取代專業攝影師對光線、情緒與人物狀態的理解。真正好的形象照，不是把你修成另一個人，而是保留你的樣子，拍出你最自然、自信、舒服的狀態。</p>
           </div>
-          <figure class="why-fig" data-reveal><img src="why-pro.png" alt="專業攝影師在棚內細心引導拍攝"></figure>
+          <figure class="why-fig" data-reveal><img src="images/why-pro.png" alt="專業攝影師在棚內細心引導拍攝"></figure>
         </div>
         <div class="why-chips" data-reveal>
           <span>「這個人很有質感。」</span>
@@ -1483,61 +300,61 @@
           <button class="tcar-btn tcar-prev" id="tcarPrev" type="button" aria-label="上一個">‹</button>
           <div class="tcar" id="tcar">
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 yenchun lin 的好評"><img src="testi-real1.jpg" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 yenchun lin 的好評"><img src="images/testi-real1.jpg" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">結論：都給我去拍👏 會聊天、會幫你調整頭髮＋噴髮膠，先拍一張完美頭髮再拍表情最後合成。有學過彩妝，懂女生要的是什麼，修鼻影、臥蠶、眉毛，臉還幫我打光弄澎。500 像我這樣是一般修、800 調整對稱。拍出人生最好看的證件照了🥹 裡面臘腸狗爺爺太可愛。</p>
                 <div class="twho"><b>yenchun lin</b> · 證件照・在地嚮導</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 藝 的好評"><img src="testi-real2.jpg" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 藝 的好評"><img src="images/testi-real2.jpg" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">證照快過期臨時抱佛腳，找到一間評價很好的「福亨攝影」。老闆超級有耐心、備品齊全（梳子、理直夾、髮油、吹風機…），也會教妳怎麼笑、調整微笑的角度。成品超級好看！我拍一般修圖就仔細到不行，才五百塊！！！還有可愛的店狗 call me，記得溫柔對他😌</p>
                 <div class="twho"><b>藝</b> · 證件照・在地嚮導</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Liang Lydia 的好評"><img src="work-headshot.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Liang Lydia 的好評"><img src="images/work-headshot.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">攝影師 14 年的專業技術，細心及敏銳的觀察，同理攝像人的需求，讓人印象深刻，會推薦給親人朋友。</p>
                 <div class="twho"><b>Liang Lydia</b> · 形象照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 陳咨宇 的好評"><img src="testi-man.png" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 陳咨宇 的好評"><img src="images/testi-man.png" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">在一開始整理自己儀容的時候，攝影師就提醒我們需要注意的地方，從一開始就能感受到他的專業。拍照的時候也非常細心，告訴我應該怎麼擺頭、臉上表情怎麼出力。整體下來體驗非常好！</p>
                 <div class="twho"><b>陳咨宇</b> · 證件照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Maggie 的好評"><img src="work-portrait.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Maggie 的好評"><img src="images/work-portrait.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">爬文看到很多人推薦福亨就來拍。拍攝前會先指導髮型怎麼調整、可現場補妝，甚至指導 T 字部位避免出油👃。拍攝中引導表情，呈現炯炯有神的成品😎。很專業、有耐心、價格又很合理🙌 一拍完還沒修圖我就覺得很完美了😄</p>
                 <div class="twho"><b>Maggie</b> · 形象照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Sonia Wu 的好評"><img src="work-id.png" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Sonia Wu 的好評"><img src="images/work-id.png" alt="福亨攝影 證件照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">拿到成品的當下就知道沒選錯！老闆會一步步引導，連我這種超不會拍照的人都拍出自然又好看的證件照，朋友還問我是不是換了髮型～</p>
                 <div class="twho"><b>Sonia Wu</b> · 證件照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 張庭瑄 的好評"><img src="testi-crew.png" alt="福亨攝影 空姐應試照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 張庭瑄 的好評"><img src="images/testi-crew.png" alt="福亨攝影 空姐應試照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">準備航空考試特地來拍，妝髮與儀態都有專業指導，老闆很懂應試照的標準。帶著這組照片去面試特別有信心，真的很推薦！</p>
                 <div class="twho"><b>張庭瑄</b> · 空姐應試照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 吳孟潔 的好評"><img src="testi-mature.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 吳孟潔 的好評"><img src="images/testi-mature.png" alt="福亨攝影 形象照成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">拍形象照本來很緊張，攝影師很會帶氣氛，幾句話就讓我放鬆下來。成品專業又有溫度，拿去更新履歷與社群，朋友都說很加分。</p>
                 <div class="twho"><b>吳孟潔</b> · 形象照</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 林宛蓁 的好評"><img src="work-lifestyle.png" alt="福亨攝影 生活/全家福成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 林宛蓁 的好評"><img src="images/work-lifestyle.png" alt="福亨攝影 生活/全家福成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">帶爸媽和阿嬤來拍全家福，老闆超有耐心，連最害羞的爸爸都被逗笑。照片洗出來掛在客廳，全家人每天看都開心。</p>
                 <div class="twho"><b>林宛蓁</b> · 全家福</div></div>
             </article>
             <article class="tcard">
-              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Yuki Lee 的好評"><img src="hero.png" alt="福亨攝影 證件照/人像成品"><span class="zoom">⤢</span></button>
+              <button class="tphoto" data-tlb type="button" aria-label="放大查看 Yuki Lee 的好評"><img src="images/hero.png" alt="福亨攝影 證件照/人像成品"><span class="zoom">⤢</span></button>
               <div class="tbody"><div class="stars">★★★★★</div>
                 <p class="ttext">真的是「你完美證件照的誕生地」！細心到連瀏海一根都會幫忙撥好，修圖自然不假，拿去辦各種證件都被稱讚好看。</p>
                 <div class="twho"><b>Yuki Lee</b> · 證件照</div></div>
@@ -1647,22 +464,22 @@
           <p class="lead">明亮的棚拍空間、藏在詔安街巷弄裡的門市與妝髮區。位在台北中正・南機場夜市附近，交通方便。</p>
         </div>
         <div class="studio-grid">
-          <figure class="studio-fig" data-reveal><img src="studio.png" alt="福亨攝影 明亮專業棚拍空間">
+          <figure class="studio-fig" data-reveal><img src="images/studio.png" alt="福亨攝影 明亮專業棚拍空間">
             <figcaption><span class="en">Studio</span>
               <h3>棚拍空間</h3>
             </figcaption>
           </figure>
-          <figure class="studio-fig" data-reveal><img src="storefront.jpg" alt="福亨攝影 門市門口 詔安街">
+          <figure class="studio-fig" data-reveal><img src="images/storefront.jpg" alt="福亨攝影 門市門口 詔安街">
             <figcaption><span class="en">Entrance</span>
               <h3>詔安街 234 巷 17 號</h3>
             </figcaption>
           </figure>
-          <figure class="studio-fig" data-reveal><img src="makeup.png" alt="福亨攝影 明亮妝髮準備區">
+          <figure class="studio-fig" data-reveal><img src="images/makeup.png" alt="福亨攝影 明亮妝髮準備區">
             <figcaption><span class="en">Hair &amp; Makeup</span>
               <h3>妝髮準備區</h3>
             </figcaption>
           </figure>
-          <figure class="studio-fig" data-reveal><img src="studio-sign.jpg" alt="福亨攝影 木製門牌 FU HENG">
+          <figure class="studio-fig" data-reveal><img src="images/studio-sign.jpg" alt="福亨攝影 木製門牌 FU HENG">
             <figcaption><span class="en">Mailbox</span>
               <h3>福亨・門牌</h3>
             </figcaption>
@@ -1686,7 +503,7 @@
     <div class="wrap">
       <div class="foot">
         <a class="brand" href="#top" aria-label="福亨攝影 首頁">
-          <img src="Fu-Heng_Logo.png" alt="福亨攝影 logo">
+          <img src="images/Fu-Heng_Logo.png" alt="福亨攝影 logo">
         </a>
         <div class="foot-links">
           <a href="https://www.instagram.com/fuheng_studio" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
@@ -1698,188 +515,7 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      "use strict";
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      // Hero carousel — Ken Burns cross-fade between 3 shots
-      (function () {
-        var slides = [].slice.call(document.querySelectorAll(".hero-carousel .slide"));
-        var dots = [].slice.call(document.querySelectorAll(".hero-dots .dot"));
-        if (slides.length < 2) return;
-        var i = 0, timer = null;
-        function show(n) {
-          n = (n + slides.length) % slides.length;
-          slides[i].classList.remove("is-active"); if (dots[i]) dots[i].classList.remove("is-active");
-          i = n;
-          slides[i].classList.add("is-active"); if (dots[i]) dots[i].classList.add("is-active");
-        }
-        function start() { if (reduce) return; stop(); timer = setInterval(function () { show(i + 1); }, 5000); }
-        function stop() { if (timer) { clearInterval(timer); timer = null; } }
-        dots.forEach(function (d, idx) { d.addEventListener("click", function () { show(idx); start(); }); });
-        start();
-        document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
-      })();
-
-      var header = document.getElementById("site-header");
-      function onScroll() { header.classList.toggle("scrolled", window.scrollY > 60); }
-      window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
-
-      var burger = document.getElementById("hamburger");
-      var mnav = document.getElementById("mobilenav");
-      function setNav(open) {
-        mnav.classList.toggle("open", open);
-        burger.setAttribute("aria-expanded", open ? "true" : "false");
-        document.body.style.overflow = open ? "hidden" : "";
-      }
-      burger.addEventListener("click", function () { setNav(!mnav.classList.contains("open")); });
-      mnav.addEventListener("click", function (e) { if (e.target.tagName === "A") setNav(false); });
-      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && mnav.classList.contains("open")) { setNav(false); burger.focus(); } });
-
-      var revealEls = document.querySelectorAll("[data-reveal]");
-      if (reduce || !("IntersectionObserver" in window)) {
-        revealEls.forEach(function (el) { el.classList.add("in"); });
-      } else {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-        }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
-        revealEls.forEach(function (el) { io.observe(el); });
-      }
-
-      document.querySelectorAll(".faq-q").forEach(function (q) {
-        q.addEventListener("click", function () {
-          var expanded = q.getAttribute("aria-expanded") === "true";
-          q.setAttribute("aria-expanded", expanded ? "false" : "true");
-          q.nextElementSibling.classList.toggle("open", !expanded);
-        });
-      });
-    })();
-    document.addEventListener("DOMContentLoaded", function () {
-      // Portfolio: category filter + pagination + category-aware lightbox
-      // Items per page match the column count so each page is exactly one row
-      function perPage() { var w = window.innerWidth; if (w <= 700) return 1; if (w <= 1100) return 3; return 4; }
-      var PER = perPage();
-      var allItems = [].slice.call(document.querySelectorAll('.gallery2 .gitem'));
-      var tabs = [].slice.call(document.querySelectorAll('.pf-tab'));
-      var pager = document.getElementById('pfPager');
-      var lb = document.getElementById('lightbox');
-      if (!allItems.length || !lb) return;
-      var lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap'), lbCount = document.getElementById('lbCount');
-      var filter = 'all', page = 0, filtered = allItems.slice(), li = 0;
-      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // Ikemoto-style scroll reveal: cards fade/drift up as they enter the viewport
-      var io = (!reduce && 'IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); } });
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }) : null;
-      function reveal(items) {
-        if (!io) { items.forEach(function (it) { it.classList.add('show'); }); return; }
-        items.forEach(function (it, idx) { it.style.transitionDelay = (idx % 4) * 65 + 'ms'; io.observe(it); });
-      }
-
-      function matches(it) { return filter === 'all' || it.getAttribute('data-cat') === filter; }
-      function render() {
-        PER = perPage();
-        filtered = allItems.filter(matches);
-        var pages = Math.max(1, Math.ceil(filtered.length / PER));
-        if (page >= pages) page = 0;
-        allItems.forEach(function (it) { it.classList.add('hide'); it.classList.remove('show'); it.style.transitionDelay = ''; if (io) io.unobserve(it); });
-        var pageItems = filtered.slice(page * PER, page * PER + PER);
-        pageItems.forEach(function (it) { it.classList.remove('hide'); });
-        void document.body.offsetWidth; // force reflow so the reveal transition replays
-        reveal(pageItems);
-        renderPager(pages);
-      }
-
-      // Re-render when the responsive per-page count changes (column breakpoints)
-      window.addEventListener('resize', function () { if (perPage() !== PER) { page = 0; render(); } });
-
-      function renderPager(pages) {
-        if (!pager) return;
-        pager.innerHTML = '';
-        if (pages <= 1) { pager.style.display = 'none'; return; }
-        pager.style.display = '';
-        function btn(label, go, opts) {
-          opts = opts || {};
-          var b = document.createElement('button'); b.type = 'button';
-          b.className = 'pf-page' + (opts.active ? ' is-active' : '') + (opts.nav ? ' pf-nav' : '');
-          b.textContent = label; if (opts.disabled) b.disabled = true;
-          if (!opts.disabled && go != null) b.addEventListener('click', function () { page = go; render(); scrollUp(); });
-          return b;
-        }
-        function gap() { var s = document.createElement('span'); s.className = 'pf-gap'; s.textContent = '…'; return s; }
-        pager.appendChild(btn('‹', page - 1, { nav: true, disabled: page === 0 }));
-        // Windowed page list: first, last, current ±1, with ellipsis between
-        var win = [], seen = {};
-        [0, pages - 1, page - 1, page, page + 1].forEach(function (p) { if (p >= 0 && p < pages && !seen[p]) { seen[p] = 1; win.push(p); } });
-        win.sort(function (a, b) { return a - b; });
-        var prev = null;
-        win.forEach(function (p) {
-          if (prev !== null && p - prev > 1) pager.appendChild(gap());
-          pager.appendChild(btn(String(p + 1), p, { active: p === page }));
-          prev = p;
-        });
-        pager.appendChild(btn('›', page + 1, { nav: true, disabled: page === pages - 1 }));
-      }
-      function scrollUp() { var t = document.querySelector('.pf-tabs'); if (t) { window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); } }
-
-      tabs.forEach(function (t) { t.addEventListener('click', function () {
-        tabs.forEach(function (x) { x.classList.remove('is-active'); }); t.classList.add('is-active');
-        filter = t.getAttribute('data-filter'); page = 0; render();
-      }); });
-
-      // Category-aware lightbox (cycles within the active filter)
-      function lbList() { return filtered.map(function (it) { var im = it.querySelector('img'); var h = it.querySelector('.gtitle'); return { src: im.getAttribute('src'), cap: h ? h.textContent : (im.getAttribute('alt') || '') }; }); }
-      var data = [];
-      function show(n) { data = lbList(); if (!data.length) return; li = (n + data.length) % data.length; lbImg.setAttribute('src', data[li].src); lbImg.setAttribute('alt', data[li].cap); lbCap.textContent = data[li].cap; lbCount.textContent = (li + 1) + ' / ' + data.length; }
-      function open(it) { data = lbList(); var idx = filtered.indexOf(it); show(idx < 0 ? 0 : idx); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
-      function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
-      allItems.forEach(function (it) { it.setAttribute('tabindex', '0'); it.addEventListener('click', function (e) { e.preventDefault(); open(it); }); it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(it); } }); });
-      document.getElementById('lbClose').addEventListener('click', close);
-      document.getElementById('lbPrev').addEventListener('click', function () { show(li - 1); });
-      document.getElementById('lbNext').addEventListener('click', function () { show(li + 1); });
-      lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(li - 1); else if (e.key === 'ArrowRight') show(li + 1); });
-
-      render();
-    });
-  document.addEventListener("DOMContentLoaded",function(){
-    var car=document.getElementById('tcar');
-    if(car){
-      var cprev=document.getElementById('tcarPrev'),cnext=document.getElementById('tcarNext');
-      function step(dir){var c=car.querySelector('.tcard');var w=c?c.getBoundingClientRect().width+20:300;car.scrollBy({left:dir*w,behavior:'smooth'});}
-      if(cprev)cprev.addEventListener('click',function(){step(-1);});
-      if(cnext)cnext.addEventListener('click',function(){step(1);});
-    }
-    var photos=[].slice.call(document.querySelectorAll('[data-tlb]'));
-    var tlb=document.getElementById('tlightbox');
-    if(photos.length&&tlb){
-      var img=document.getElementById('tlbImg'),txt=document.getElementById('tlbText'),who=document.getElementById('tlbWho'),cnt=document.getElementById('tlbCount');
-      var data=photos.map(function(p){var card=p.closest('.tcard');return{src:p.querySelector('img').getAttribute('src'),text:card.querySelector('.ttext').textContent.trim(),who:card.querySelector('.twho').innerHTML};});
-      var i=0;
-      function tshow(n){i=(n+data.length)%data.length;img.setAttribute('src',data[i].src);txt.textContent=data[i].text;who.innerHTML=data[i].who;cnt.textContent=(i+1)+' / '+data.length;}
-      function topen(n){tshow(n);tlb.classList.add('open');document.body.style.overflow='hidden';}
-      function tclose(){tlb.classList.remove('open');document.body.style.overflow='';}
-      photos.forEach(function(p,n){p.addEventListener('click',function(){topen(n);});});
-      document.getElementById('tlbClose').addEventListener('click',tclose);
-      document.getElementById('tlbPrev').addEventListener('click',function(){tshow(i-1);});
-      document.getElementById('tlbNext').addEventListener('click',function(){tshow(i+1);});
-      tlb.addEventListener('click',function(e){if(e.target===tlb)tclose();});
-      document.addEventListener('keydown',function(e){if(!tlb.classList.contains('open'))return;if(e.key==='Escape')tclose();else if(e.key==='ArrowLeft')tshow(i-1);else if(e.key==='ArrowRight')tshow(i+1);});
-    }
-  });
-  document.addEventListener("DOMContentLoaded",function(){
-    var gtabs=[].slice.call(document.querySelectorAll('.gtab'));
-    var gpanels=[].slice.call(document.querySelectorAll('.gpanel'));
-    if(!gtabs.length)return;
-    gtabs.forEach(function(t){t.addEventListener('click',function(){
-      var g=t.getAttribute('data-g');
-      gtabs.forEach(function(x){x.classList.toggle('is-active',x===t);});
-      gpanels.forEach(function(p){p.classList.toggle('is-active',p.getAttribute('data-g')===g);});
-    });});
-  });
-  </script>
+  <script src="js/main.js"></script>
   <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="作品集瀏覽">
     <span class="lb-count" id="lbCount"></span>
     <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="關閉">✕</button>
