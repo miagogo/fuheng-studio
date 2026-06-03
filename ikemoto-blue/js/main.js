@@ -159,24 +159,34 @@
     function topen(n){tshow(n);tlb.classList.add('open');document.body.style.overflow='hidden';}
     function tclose(){tlb.classList.remove('open');document.body.style.overflow='';}
 
-    // --- duplicate the set once for a seamless infinite loop ---
-    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reduce){origCards.forEach(function(c){var cl=c.cloneNode(true);cl.classList.add('tclone');cl.setAttribute('aria-hidden','true');track.appendChild(cl);});}
+    // --- duplicate the set once so we can wrap seamlessly past the last card ---
+    origCards.forEach(function(c){var cl=c.cloneNode(true);cl.classList.add('tclone');cl.setAttribute('aria-hidden','true');track.appendChild(cl);});
     [].slice.call(track.querySelectorAll('.tclone .tcard-hit')).forEach(function(h){h.setAttribute('tabindex','-1');});
 
     // open lightbox from any card (original or clone) via its index
     [].slice.call(track.querySelectorAll('.tcard-hit')).forEach(function(h){h.addEventListener('click',function(){topen(parseInt(h.closest('.tcard').dataset.idx,10)||0);});});
 
-    // size the loop so the clone lands exactly where the original started
-    function sizeLoop(){
-      if(reduce)return;
-      var firstClone=track.querySelector('.tclone');if(!firstClone)return;
-      var shift=firstClone.offsetLeft-origCards[0].offsetLeft; // one full set; layout pos, unaffected by transform
-      track.style.setProperty('--tshift',shift+'px');
-      track.style.setProperty('--tdur',Math.max(24,Math.round(shift/70))+'s'); // ~70px/sec
+    // --- arrow-driven infinite carousel (transform based, seamless wrap) ---
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var N=origCards.length, DUR=reduce?0:520, pos=0, step=0, busy=false;
+    function measure(){step=origCards[1]?(origCards[1].offsetLeft-origCards[0].offsetLeft):origCards[0].offsetWidth;}
+    function apply(animate){track.style.transition=animate?('transform '+DUR+'ms cubic-bezier(.4,0,.2,1)'):'none';track.style.transform='translateX('+(-pos*step)+'px)';}
+    measure();apply(false);
+    function next(){
+      if(busy)return;busy=true;
+      pos++;apply(true);
+      setTimeout(function(){if(pos>=N){pos=0;apply(false);}busy=false;},DUR+40);
     }
-    sizeLoop();
-    window.addEventListener('resize',sizeLoop);
+    function prev(){
+      if(busy)return;busy=true;
+      if(pos<=0){pos=N;apply(false);void track.offsetWidth;pos=N-1;apply(true);} // jump to identical frame, then slide back
+      else{pos--;apply(true);}
+      setTimeout(function(){busy=false;},DUR+40);
+    }
+    var pbtn=document.getElementById('tcarPrev'),nbtn=document.getElementById('tcarNext');
+    if(nbtn)nbtn.addEventListener('click',next);
+    if(pbtn)pbtn.addEventListener('click',prev);
+    window.addEventListener('resize',function(){measure();track.style.transition='none';track.style.transform='translateX('+(-pos*step)+'px)';});
 
     // --- lightbox controls ---
     document.getElementById('tlbClose').addEventListener('click',tclose);
