@@ -1129,8 +1129,8 @@
   .gallery2 .gframe{display:block;position:relative;overflow:hidden;border-radius:12px;background:var(--navy-2);cursor:zoom-in}
   .gallery2 .gframe::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(10,28,48,.4));opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
   .gallery2 .gitem:hover .gframe::after{opacity:1}
-  .gallery2 .gpara{display:block;will-change:transform}
-  .gallery2 .gpara img{width:100%;display:block;height:116%;object-fit:cover;margin-top:-8%;transition:transform 1s var(--ease);will-change:transform}
+  .gallery2 .gpara{display:block}
+  .gallery2 .gpara img{width:100%;display:block;height:auto;transition:transform 1s var(--ease);will-change:transform}
   .gallery2 .gitem:hover .gpara img{transform:scale(1.06)}
   .gallery2 .gmeta{display:flex;align-items:baseline;gap:12px;padding:15px 4px 0}
   .gallery2 .gtag{flex:none;font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-soft);border-radius:999px;padding:4px 11px;line-height:1;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
@@ -1786,33 +1786,12 @@
         if (page >= pages) page = 0;
         allItems.forEach(function (it) { it.classList.add('hide'); it.classList.remove('show'); it.style.transitionDelay = ''; if (io) io.unobserve(it); });
         var pageItems = filtered.slice(page * PER, page * PER + PER);
-        pageItems.forEach(function (it, idx) { it.classList.remove('hide'); it.dataset.pp = idx % 2; });
+        pageItems.forEach(function (it) { it.classList.remove('hide'); });
         void document.body.offsetWidth; // force reflow so the reveal transition replays
         reveal(pageItems);
         renderPager(pages);
-        parallax();
       }
 
-      // Image parallax within each frame: photos drift at slightly different speeds on scroll
-      function parallax() {
-        if (reduce) return;
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        for (var i = 0; i < allItems.length; i++) {
-          var it = allItems[i];
-          if (it.classList.contains('hide')) continue;
-          var pa = it.querySelector('.gpara'); if (!pa) continue;
-          var r = it.getBoundingClientRect();
-          if (r.bottom < -200 || r.top > vh + 200) continue;
-          var prog = (r.top + r.height / 2 - vh / 2) / vh;       // ~ -0.5 .. 0.5
-          var dir = it.dataset.pp === '1' ? -1 : 1;
-          var ty = Math.max(-7, Math.min(7, prog * 7 * dir));    // clamp to frame headroom (%)
-          pa.style.transform = 'translateY(' + ty.toFixed(2) + '%)';
-        }
-      }
-      var ppTick = false;
-      function onScroll() { if (!ppTick) { ppTick = true; requestAnimationFrame(function () { parallax(); ppTick = false; }); } }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
       // Re-render when the responsive per-page count changes (column breakpoints)
       window.addEventListener('resize', function () { if (perPage() !== PER) { page = 0; render(); } });
 
