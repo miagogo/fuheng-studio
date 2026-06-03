@@ -1107,6 +1107,11 @@
   .tlb-who b{color:var(--ink);font-weight:700}
   .tlb-count{position:absolute;top:18px;left:22px;color:rgba(255,255,255,.75);font-size:13px;letter-spacing:.1em;z-index:2}
   @media(max-width:760px){.tlb-inner{grid-template-columns:1fr;max-height:90vh;overflow:auto}.tlb-inner img{height:auto;max-width:90vw;max-height:46vh;width:100%}}
+  /* directional slide-fade when switching testimonials */
+  @keyframes tlbOutLeft{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-44px)}}
+  @keyframes tlbOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(44px)}}
+  @keyframes tlbInRight{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes tlbInLeft{from{opacity:0;transform:translateX(-44px)}to{opacity:1;transform:translateX(0)}}
 
   /* Contact map */
 

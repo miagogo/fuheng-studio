@@ -154,9 +154,24 @@
     // --- lightbox data from the original (unique) reviews ---
     var img=document.getElementById('tlbImg'),txt=document.getElementById('tlbText'),who=document.getElementById('tlbWho'),cnt=document.getElementById('tlbCount');
     var data=origCards.map(function(c){return{src:c.querySelector('img').getAttribute('src'),text:c.querySelector('.ttext').textContent.trim(),who:c.querySelector('.twho').innerHTML};});
-    var i=0;
-    function tshow(n){i=(n+data.length)%data.length;img.setAttribute('src',data[i].src);txt.textContent=data[i].text;who.innerHTML=data[i].who;cnt.textContent=(i+1)+' / '+data.length;}
-    function topen(n){tshow(n);tlb.classList.add('open');document.body.style.overflow='hidden';}
+    var i=0,tlbInner=tlb.querySelector('.tlb-inner'),tgen=0;
+    function setContent(){img.setAttribute('src',data[i].src);txt.textContent=data[i].text;who.innerHTML=data[i].who;cnt.textContent=(i+1)+' / '+data.length;}
+    // directional slide-fade: next -> out left / in right; prev -> out right / in left
+    function tswitch(n,dir){
+      var ni=((n%data.length)+data.length)%data.length;
+      var reduceM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(!dir||reduceM){i=ni;setContent();tlbInner.style.animation='';return;}
+      var myGen=++tgen;
+      tlbInner.style.animation=(dir>0?'tlbOutLeft':'tlbOutRight')+' 170ms ease both';
+      setTimeout(function(){
+        if(myGen!==tgen)return;
+        i=ni;setContent();
+        tlbInner.style.animation='none';void tlbInner.offsetWidth;
+        tlbInner.style.animation=(dir>0?'tlbInRight':'tlbInLeft')+' 300ms cubic-bezier(.22,.61,.36,1) both';
+        setTimeout(function(){if(myGen===tgen)tlbInner.style.animation='';},320);
+      },170);
+    }
+    function topen(n){i=((n%data.length)+data.length)%data.length;setContent();tlbInner.style.animation='';tlb.classList.add('open');document.body.style.overflow='hidden';}
     function tclose(){tlb.classList.remove('open');document.body.style.overflow='';}
 
     // --- clone one set on each side so arrows & drag can wrap seamlessly ---
@@ -218,10 +233,10 @@
 
     // --- lightbox controls ---
     document.getElementById('tlbClose').addEventListener('click',tclose);
-    document.getElementById('tlbPrev').addEventListener('click',function(){tshow(i-1);});
-    document.getElementById('tlbNext').addEventListener('click',function(){tshow(i+1);});
+    document.getElementById('tlbPrev').addEventListener('click',function(){tswitch(i-1,-1);});
+    document.getElementById('tlbNext').addEventListener('click',function(){tswitch(i+1,1);});
     tlb.addEventListener('click',function(e){if(e.target===tlb)tclose();});
-    document.addEventListener('keydown',function(e){if(!tlb.classList.contains('open'))return;if(e.key==='Escape')tclose();else if(e.key==='ArrowLeft')tshow(i-1);else if(e.key==='ArrowRight')tshow(i+1);});
+    document.addEventListener('keydown',function(e){if(!tlb.classList.contains('open'))return;if(e.key==='Escape')tclose();else if(e.key==='ArrowLeft')tswitch(i-1,-1);else if(e.key==='ArrowRight')tswitch(i+1,1);});
   });
   document.addEventListener("DOMContentLoaded",function(){
     var gtabs=[].slice.call(document.querySelectorAll('.gtab'));
