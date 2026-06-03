@@ -1122,14 +1122,14 @@
   /* === Full-width sections (portfolio + testimonials) === */
   .wrap-full{max-width:none;margin-inline:0;padding-inline:clamp(16px,3.5vw,48px)}
   /* Editorial portfolio gallery — Ikemoto-style motion */
-  .gallery2{column-count:4;column-gap:20px}
-  .gallery2 .gitem{display:block;break-inside:avoid;margin:0 0 30px;position:relative;text-decoration:none;opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease);will-change:opacity,transform}
+  .gallery2{display:grid;grid-template-columns:repeat(4,1fr);gap:24px 20px}
+  .gallery2 .gitem{display:block;margin:0;position:relative;text-decoration:none;opacity:0;transform:translateY(36px);transition:opacity .75s var(--ease),transform .75s var(--ease);will-change:opacity,transform}
   .gallery2 .gitem.show{opacity:1;transform:none}
   .gallery2 .gitem.hide{display:none}
-  .gallery2 .gframe{position:relative;overflow:hidden;border-radius:12px;background:var(--navy-2);cursor:zoom-in}
+  .gallery2 .gframe{display:block;position:relative;overflow:hidden;border-radius:12px;background:var(--navy-2);cursor:zoom-in;aspect-ratio:3/4}
   .gallery2 .gframe::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(10,28,48,.4));opacity:0;transition:opacity .5s var(--ease);pointer-events:none}
   .gallery2 .gitem:hover .gframe::after{opacity:1}
-  .gallery2 .gpara{display:block;will-change:transform}
+  .gallery2 .gpara{display:block;height:100%;will-change:transform}
   .gallery2 .gpara img{width:100%;display:block;height:116%;object-fit:cover;margin-top:-8%;transition:transform 1s var(--ease);will-change:transform}
   .gallery2 .gitem:hover .gpara img{transform:scale(1.06)}
   .gallery2 .gmeta{display:flex;align-items:baseline;gap:12px;padding:15px 4px 0}
@@ -1139,10 +1139,6 @@
   .gallery2 .gtitle::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--gold);transition:width .55s var(--ease)}
   .gallery2 .gitem:hover .gtitle::after,.gallery2 .gitem:focus-visible .gtitle::after{width:100%}
   .gallery2 .gitem:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:6px}
-  /* cursor-follow zoom label */
-  .cursor-view{position:fixed;top:0;left:0;z-index:60;pointer-events:none;display:flex;align-items:center;justify-content:center;width:74px;height:74px;border-radius:999px;background:var(--gold);color:var(--navy);font-family:var(--sans);font-size:12px;letter-spacing:.12em;font-weight:600;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .3s var(--ease),opacity .3s var(--ease)}
-  .cursor-view.on{transform:translate(-50%,-50%) scale(1);opacity:1}
-  @media(hover:none){.cursor-view{display:none}}
   @media(prefers-reduced-motion:reduce){.gallery2 .gitem{transition:opacity .4s linear;transform:none}.gallery2 .gpara img{transition:none}}
   /* Portfolio pager */
   .pf-pager{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:clamp(28px,3vw,42px)}
@@ -1191,9 +1187,9 @@
   .loc-map iframe{width:100%;height:100%;min-height:340px;border:0;display:block}
   .gtransport-col{max-width:none;margin:0;grid-template-columns:1fr;align-content:start;gap:20px}
   @media(max-width:860px){.loc-grid{grid-template-columns:1fr}.loc-map iframe{min-height:300px}}
-  @media(max-width:1100px){.gallery2{column-count:3}}
-  @media(max-width:700px){.gallery2{column-count:2}}
-  @media(max-width:440px){.gallery2{column-count:1}}
+  @media(max-width:1100px){.gallery2{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:700px){.gallery2{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:440px){.gallery2{grid-template-columns:1fr}}
   /* Portfolio filter tabs */
   .pf-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:1100px;margin:0 auto clamp(26px,3vw,40px)}
   .pf-tab{font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:rgba(224,239,250,.75);background:transparent;border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
@@ -1761,7 +1757,7 @@
     })();
     document.addEventListener("DOMContentLoaded", function () {
       // Portfolio: category filter + pagination + category-aware lightbox
-      var PER = 6;
+      var PER = 8;
       var allItems = [].slice.call(document.querySelectorAll('.gallery2 .gitem'));
       var tabs = [].slice.call(document.querySelectorAll('.pf-tab'));
       var pager = document.getElementById('pfPager');
@@ -1815,16 +1811,6 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
 
-      // Cursor-following "放大" label while pointing at a gallery photo
-      var gal = document.querySelector('.gallery2');
-      if (gal && window.matchMedia && window.matchMedia('(hover: hover)').matches) {
-        var cv = document.createElement('div'); cv.className = 'cursor-view'; cv.textContent = '放大'; document.body.appendChild(cv);
-        gal.addEventListener('pointermove', function (e) {
-          cv.style.left = e.clientX + 'px'; cv.style.top = e.clientY + 'px';
-          if (e.target.closest('.gframe')) cv.classList.add('on'); else cv.classList.remove('on');
-        });
-        gal.addEventListener('pointerleave', function () { cv.classList.remove('on'); });
-      }
       function renderPager(pages) {
         if (!pager) return;
         pager.innerHTML = '';
