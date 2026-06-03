@@ -1146,6 +1146,7 @@
   .pf-page:hover:not(:disabled){border-color:var(--gold-soft);color:var(--cream)}
   .pf-page.is-active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
   .pf-page:disabled{opacity:.35;cursor:default}
+  .pf-pager .pf-gap{display:flex;align-items:flex-end;padding:0 4px 8px;color:rgba(224,239,250,.45);font-family:var(--sans);font-size:14px;user-select:none}
   /* Guide / 拍攝說明 section */
   .gtabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:clamp(28px,3vw,44px)}
   .gtab{font-family:var(--sans);font-size:15px;color:var(--ink-soft);background:#fff;border:1px solid var(--line-l);border-radius:999px;padding:11px 26px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
@@ -1188,8 +1189,7 @@
   .gtransport-col{max-width:none;margin:0;grid-template-columns:1fr;align-content:start;gap:20px}
   @media(max-width:860px){.loc-grid{grid-template-columns:1fr}.loc-map iframe{min-height:300px}}
   @media(max-width:1100px){.gallery2{column-count:3}}
-  @media(max-width:700px){.gallery2{column-count:2}}
-  @media(max-width:440px){.gallery2{column-count:1}}
+  @media(max-width:700px){.gallery2{column-count:1}}
   /* Portfolio filter tabs */
   .pf-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:1100px;margin:0 auto clamp(26px,3vw,40px)}
   .pf-tab{font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:rgba(224,239,250,.75);background:transparent;border:1px solid var(--line-d);border-radius:999px;padding:9px 20px;cursor:pointer;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
@@ -1757,7 +1757,9 @@
     })();
     document.addEventListener("DOMContentLoaded", function () {
       // Portfolio: category filter + pagination + category-aware lightbox
-      var PER = 6;
+      // Items per page match the column count so each page is exactly one row
+      function perPage() { var w = window.innerWidth; if (w <= 700) return 1; if (w <= 1100) return 3; return 4; }
+      var PER = perPage();
       var allItems = [].slice.call(document.querySelectorAll('.gallery2 .gitem'));
       var tabs = [].slice.call(document.querySelectorAll('.pf-tab'));
       var pager = document.getElementById('pfPager');
@@ -1778,6 +1780,7 @@
 
       function matches(it) { return filter === 'all' || it.getAttribute('data-cat') === filter; }
       function render() {
+        PER = perPage();
         filtered = allItems.filter(matches);
         var pages = Math.max(1, Math.ceil(filtered.length / PER));
         if (page >= pages) page = 0;
@@ -1810,6 +1813,8 @@
       function onScroll() { if (!ppTick) { ppTick = true; requestAnimationFrame(function () { parallax(); ppTick = false; }); } }
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
+      // Re-render when the responsive per-page count changes (column breakpoints)
+      window.addEventListener('resize', function () { if (perPage() !== PER) { page = 0; render(); } });
 
       function renderPager(pages) {
         if (!pager) return;
@@ -1824,8 +1829,18 @@
           if (!opts.disabled && go != null) b.addEventListener('click', function () { page = go; render(); scrollUp(); });
           return b;
         }
+        function gap() { var s = document.createElement('span'); s.className = 'pf-gap'; s.textContent = '…'; return s; }
         pager.appendChild(btn('‹', page - 1, { nav: true, disabled: page === 0 }));
-        for (var p = 0; p < pages; p++) pager.appendChild(btn(String(p + 1), p, { active: p === page }));
+        // Windowed page list: first, last, current ±1, with ellipsis between
+        var win = [], seen = {};
+        [0, pages - 1, page - 1, page, page + 1].forEach(function (p) { if (p >= 0 && p < pages && !seen[p]) { seen[p] = 1; win.push(p); } });
+        win.sort(function (a, b) { return a - b; });
+        var prev = null;
+        win.forEach(function (p) {
+          if (prev !== null && p - prev > 1) pager.appendChild(gap());
+          pager.appendChild(btn(String(p + 1), p, { active: p === page }));
+          prev = p;
+        });
         pager.appendChild(btn('›', page + 1, { nav: true, disabled: page === pages - 1 }));
       }
       function scrollUp() { var t = document.querySelector('.pf-tabs'); if (t) { window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); } }
