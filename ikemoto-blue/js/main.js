@@ -130,16 +130,34 @@
 
       // Category-aware lightbox (cycles within the active filter)
       function lbList() { return filtered.map(function (it) { var im = it.querySelector('img'); var h = it.querySelector('.gtitle'); return { src: im.getAttribute('src'), cap: h ? h.textContent : (im.getAttribute('alt') || '') }; }); }
-      var data = [];
-      function show(n) { data = lbList(); if (!data.length) return; li = (n + data.length) % data.length; lbImg.setAttribute('src', data[li].src); lbImg.setAttribute('alt', data[li].cap); lbCap.textContent = data[li].cap; lbCount.textContent = (li + 1) + ' / ' + data.length; }
+      var data = [], lbGen = 0;
+      function setLb() { lbImg.setAttribute('src', data[li].src); lbImg.setAttribute('alt', data[li].cap); lbCap.textContent = data[li].cap; lbCount.textContent = (li + 1) + ' / ' + data.length; }
+      // directional slide-fade: next -> out left / in right; prev -> out right / in left
+      function show(n, dir) {
+        data = lbList(); if (!data.length) return;
+        var ni = (n + data.length) % data.length;
+        var reduceM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!dir || reduceM) { li = ni; setLb(); lbImg.style.animation = ''; lbCap.style.animation = ''; return; }
+        var myGen = ++lbGen;
+        var out = (dir > 0 ? 'tlbOutLeft' : 'tlbOutRight') + ' 170ms ease both';
+        var inn = (dir > 0 ? 'tlbInRight' : 'tlbInLeft') + ' 300ms cubic-bezier(.22,.61,.36,1) both';
+        lbImg.style.animation = out; lbCap.style.animation = out;
+        setTimeout(function () {
+          if (myGen !== lbGen) return;
+          li = ni; setLb();
+          lbImg.style.animation = 'none'; lbCap.style.animation = 'none'; void lbImg.offsetWidth;
+          lbImg.style.animation = inn; lbCap.style.animation = inn;
+          setTimeout(function () { if (myGen === lbGen) { lbImg.style.animation = ''; lbCap.style.animation = ''; } }, 320);
+        }, 170);
+      }
       function open(it) { data = lbList(); var idx = filtered.indexOf(it); show(idx < 0 ? 0 : idx); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
       function close() { lb.classList.remove('open'); document.body.style.overflow = ''; }
       allItems.forEach(function (it) { it.setAttribute('tabindex', '0'); it.addEventListener('click', function (e) { e.preventDefault(); open(it); }); it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(it); } }); });
       document.getElementById('lbClose').addEventListener('click', close);
-      document.getElementById('lbPrev').addEventListener('click', function () { show(li - 1); });
-      document.getElementById('lbNext').addEventListener('click', function () { show(li + 1); });
+      document.getElementById('lbPrev').addEventListener('click', function () { show(li - 1, -1); });
+      document.getElementById('lbNext').addEventListener('click', function () { show(li + 1, 1); });
       lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
-      document.addEventListener('keydown', function (e) { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(li - 1); else if (e.key === 'ArrowRight') show(li + 1); });
+      document.addEventListener('keydown', function (e) { if (!lb.classList.contains('open')) return; if (e.key === 'Escape') close(); else if (e.key === 'ArrowLeft') show(li - 1, -1); else if (e.key === 'ArrowRight') show(li + 1, 1); });
 
       render();
     });
