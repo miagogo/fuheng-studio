@@ -167,6 +167,43 @@
       color: var(--gold)
     }
 
+    /* 預約雙按鈕（LINE / Messenger 品牌色） */
+    .book-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px
+    }
+
+    .btn .btn-ic {
+      width: 20px;
+      height: 20px;
+      flex: none
+    }
+
+    .btn-line {
+      background: #06C755;
+      border-color: #06C755;
+      color: #fff
+    }
+
+    .btn-line:hover {
+      background: transparent;
+      color: #06C755;
+      border-color: #06C755
+    }
+
+    .btn-msgr {
+      background: #0084FF;
+      border-color: #0084FF;
+      color: #fff
+    }
+
+    .btn-msgr:hover {
+      background: transparent;
+      color: #0084FF;
+      border-color: #0084FF
+    }
+
     /* Header */
     header {
       position: fixed;
@@ -426,7 +463,7 @@
       line-height: 1.02;
       font-size: clamp(3.4rem, 12.5vw, 9.5rem);
       color: var(--white);
-      text-indent: -0.18em
+      text-indent: -0.035em
     }
 
     .hero .title-en {
@@ -785,7 +822,7 @@
       display: flex;
       justify-content: space-between;
       gap: 16px;
-      align-items: baseline
+      align-items: center
     }
 
     .contact-info .k {
@@ -793,6 +830,30 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--gold)
+    }
+
+    .contact-info .socials {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: flex-end
+    }
+
+    .contact-info .soc {
+      display: inline-flex;
+      line-height: 0;
+      transition: transform .25s var(--ease), filter .25s var(--ease)
+    }
+
+    .contact-info .soc:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.12)
+    }
+
+    .contact-info .soc .brand-ic {
+      display: block;
+      width: 26px;
+      height: 26px
     }
 
     .contact-info .v {
