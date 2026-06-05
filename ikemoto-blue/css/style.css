@@ -4,6 +4,7 @@
       --navy-2: #12304C;
       --navy-3: #1C4A72;
       --cream: #E9F1F8;
+      --cream-1: #F2F7FC;
       --cream-2: #D7E6F2;
       --ink: #13212E;
       --ink-soft: #516373;
@@ -552,6 +553,10 @@
 
     .on-navy p {
       color: rgba(224, 239, 250, .66)
+    }
+
+    .on-cream-1 {
+      background: var(--cream-1)
     }
 
     .on-cream-2 {
