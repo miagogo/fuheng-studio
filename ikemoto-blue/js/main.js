@@ -171,4 +171,21 @@
       gpanels.forEach(function(p){p.classList.toggle('is-active',p.getAttribute('data-g')===g);});
     });});
   });
+
+  // Back-to-top: fade in after scrolling past half the viewport height
+  (function () {
+    var btn = document.getElementById('toTop');
+    if (!btn) return;
+    var ticking = false;
+    function update() {
+      var y = window.scrollY || document.documentElement.scrollTop || 0;
+      var half = (window.innerHeight || document.documentElement.clientHeight) / 2;
+      btn.classList.toggle('show', y > half);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  })();
   
