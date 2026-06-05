@@ -894,7 +894,8 @@
 
     .foot-links {
       display: flex;
-      gap: 24px
+      gap: 24px;
+      color: rgba(224, 239, 250, .66);
     }
 
     .foot-links a {
@@ -911,7 +912,6 @@
       color: rgba(224, 239, 250, .4);
       font-size: 12.5px;
       text-align: center;
-      margin-top: 30px;
       letter-spacing: .08em
     }
 
@@ -1187,13 +1187,29 @@
   .gnote{max-width:1100px;margin:clamp(18px,2vw,26px) auto 0;font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.85}
   /* merged service: intro + dark price banner */
   .panel-intro{max-width:1000px;margin:0 auto clamp(18px,2vw,24px);text-align:center;color:var(--ink-soft);font-size:1.02rem;line-height:1.9}
+  /* default banner = full-width band (used by the unchanged 其他服務 tab) */
   .plan-banner{background:var(--navy);border-radius:14px;padding:clamp(20px,3vw,28px) clamp(22px,3vw,34px);display:flex;flex-wrap:wrap;align-items:center;gap:18px 36px;width:100%;max-width:1100px;margin:clamp(24px,3vw,34px) auto 0}
+  /* reworked tabs: banner sits inside .gcols as a dark grid cell */
+  .gcols .plan-banner{flex-direction:column;flex-wrap:nowrap;align-items:stretch;gap:16px;padding:clamp(22px,3vw,30px);width:auto;max-width:none;margin:0}
   .pb-item{display:flex;flex-direction:column;gap:3px}
   .pb-item .pb-name{font-size:13px;letter-spacing:.06em;color:rgba(224,239,250,.72)}
   .pb-item .pb-amt{font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:600;color:var(--gold);line-height:1.05}
   .pb-item .pb-sub{font-size:12px;color:rgba(224,239,250,.55)}
   .plan-banner .btn{margin-left:auto;white-space:nowrap}
   .pb-note{flex-basis:100%;font-size:12.5px;color:rgba(224,239,250,.6);margin:0;letter-spacing:.02em}
+  .gcols .plan-banner .pb-note{flex-basis:auto}
+  .pb-prices{display:flex;flex-wrap:wrap;gap:14px 40px;align-items:flex-start}
+  /* 證件照: tall banner with add-on list pushed to the bottom */
+  .pb-addon{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-d)}
+  .pb-addon h4{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:rgba(224,239,250,.72);font-weight:500;margin-bottom:10px}
+  .pb-addon ul{display:flex;flex-direction:column;gap:8px}
+  .pb-addon li{position:relative;padding-left:16px;font-size:14px;color:rgba(224,239,250,.78);line-height:1.7}
+  .pb-addon li::before{content:"–";position:absolute;left:0;color:var(--gold)}
+  /* 證件照 split layout: 2 cards stacked left, banner tall on the right */
+  .gcols.split .gcard:nth-of-type(1){grid-column:1;grid-row:1}
+  .gcols.split .gcard:nth-of-type(2){grid-column:1;grid-row:2}
+  .gcols.split .plan-banner{grid-column:2;grid-row:1 / span 2}
+  @media(max-width:760px){.gcols.split .gcard:nth-of-type(1),.gcols.split .gcard:nth-of-type(2),.gcols.split .plan-banner{grid-column:auto;grid-row:auto}}
   @media(max-width:560px){.plan-banner .btn{margin-left:0;width:100%;justify-content:center}}
   .gtransport{max-width:1100px;margin:clamp(20px,2.5vw,30px) auto 0;background:#fff;border:1px solid var(--line-l);border-radius:14px;padding:clamp(22px,3vw,30px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .gtransport h4{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:8px}
