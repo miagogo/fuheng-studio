@@ -732,13 +732,14 @@
 
     /* FAQ */
     .faq {
-      max-width: 860px;
+      max-width: 100%;
       margin-inline: auto;
+      margin-top: 100px;
       border-top: 1px solid var(--line-l)
     }
 
     .faq-item {
-      border-bottom: 1px solid var(--line-l)
+      border-bottom: 1px solid var(--line-d)
     }
 
     .faq-q {
@@ -746,7 +747,7 @@
       background: none;
       border: 0;
       font-family: var(--sans);
-      color: var(--ink);
+      color: var(--white);
       text-align: left;
       cursor: pointer;
       font-size: clamp(1.05rem, 1.6vw, 1.25rem);
@@ -762,8 +763,8 @@
       right: 6px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--gold-deep);
-      font-size: 1.3rem;
+      color: var(--gold);
+      font-size: 16px;
       transition: transform .4s var(--ease)
     }
 
@@ -783,7 +784,7 @@
     }
 
     .faq-a p {
-      color: var(--ink-soft);
+      color: rgba(224, 239, 250, .66);
       font-size: 15px;
       max-width: 72ch
     }
