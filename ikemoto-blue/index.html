@@ -275,9 +275,7 @@
                 <h4>加價項目</h4>
                 <ul>
                   <li>加洗照片 $100／組</li>
-                  <li>修正放大片瞳孔 $200</li>
-                  <li>修正眼鏡反光 $200</li>
-                  <li>修牙套 $400</li>
+                  <!-- <li>修牙套 $400</li> -->
                   <li>7-11 店到店寄送 $60</li>
                 </ul>
               </div>
@@ -642,6 +640,51 @@
     <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="下一張">›</button>
     <span class="lb-cap" id="lbCap"></span>
   </div>
+
+  <!-- GTM event tracking → dataLayer (GTM-M9VG8C7H) -->
+  <script>
+    (function () {
+      window.dataLayer = window.dataLayer || [];
+      function push(o) { window.dataLayer.push(o); }
+
+      // --- Click events (delegated, capture phase so other handlers can't block) ---
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest && e.target.closest('a, button');
+        if (!el) return;
+
+        if (el.closest('.btn-line')) {
+          push({ event: 'click_line', link_url: el.getAttribute('href') || '' });
+        } else if (el.closest('.btn-msgr')) {
+          push({ event: 'click_messenger', link_url: el.getAttribute('href') || '' });
+        } else if (el.closest('a[href^="tel:"]')) {
+          push({ event: 'click_phone', link_url: el.closest('a[href^="tel:"]').getAttribute('href') });
+        } else if (el.closest('a[href^="mailto:"]')) {
+          push({ event: 'click_email', link_url: el.closest('a[href^="mailto:"]').getAttribute('href') });
+        } else if (el.closest('.pf-tab')) {
+          push({ event: 'click_portfolio_filter', filter_category: el.closest('.pf-tab').getAttribute('data-filter') || '' });
+        } else if (el.closest('a.btn[href="#contact"]')) {
+          push({ event: 'click_booking', button_text: (el.textContent || '').trim() });
+        }
+      }, true);
+
+      // --- Scroll depth: 25 / 50 / 75 / 100 (each fires once per page load) ---
+      var marks = [25, 50, 75, 100], fired = {};
+      function checkDepth() {
+        var doc = document.documentElement;
+        var scrollable = doc.scrollHeight - window.innerHeight;
+        if (scrollable <= 0) return;
+        var pct = (window.scrollY || doc.scrollTop) / scrollable * 100;
+        for (var i = 0; i < marks.length; i++) {
+          if (pct >= marks[i] && !fired[marks[i]]) {
+            fired[marks[i]] = true;
+            push({ event: 'scroll_depth', percent_scrolled: marks[i] });
+          }
+        }
+      }
+      window.addEventListener('scroll', checkDepth, { passive: true });
+      window.addEventListener('load', checkDepth);
+    })();
+  </script>
 </body>
 
 </html>
