@@ -24,7 +24,10 @@
       --maxw: 1280px;
       --pad: clamp(20px, 5vw, 64px);
       --ease: cubic-bezier(.22, .61, .36, 1);
-      --body-text-color: rgba(243, 250, 255, 0.78);
+      /* typography */
+      --text-color: rgba(243, 250, 255, 0.78);
+      --font-size-base: 16px;
+      --font-size-sm: 14px;
     }
 
     * {
@@ -40,11 +43,13 @@
 
     body {
       background: var(--sec-b);
-      color: var(--cream);
+      color: var(--text-color);
       font-family: var(--sans);
       line-height: 1.9;
       font-weight: 400;
-      -webkit-font-smoothing: antialiased
+      -webkit-font-smoothing: antialiased;
+      font-size: var(--font-size-base);
+      letter-spacing: .08em;
     }
 
     img {
@@ -88,7 +93,7 @@
     }
 
     .eyebrow {
-      font-size: 14px;
+      font-size: var(--font-size-sm);
       font-weight: 700;
       letter-spacing: .34em;
       text-transform: uppercase;
@@ -125,9 +130,8 @@
       letter-spacing: .08em
     }
 
-    p {
-      color: var(--body-text-color);
-      letter-spacing: .08em;
+    p,li {
+      color: var(--text-color);
     }
 
     .lead {
@@ -142,7 +146,6 @@
       align-items: center;
       gap: .6em;
       font-family: var(--sans);
-      font-size: 15px;
       font-weight: 500;
       letter-spacing: .08em;
       padding: 15px 32px;
@@ -244,7 +247,7 @@
       gap: 12px;
       color: var(--cream);
       font-weight: 700;
-      font-size: 17px;
+      font-size: 18px;
       letter-spacing: .16em
     }
 
@@ -268,9 +271,8 @@
     }
 
     .nav-links a {
-      font-size: 16px;
       letter-spacing: .1em;
-      color: var(--cream);
+      color: var(--white);
       opacity: .82;
       transition: opacity .3s, color .3s;
       position: relative
@@ -521,7 +523,7 @@
       z-index: 2;
       writing-mode: vertical-rl;
       letter-spacing: .3em;
-      font-size: 14px;
+      font-size: var(--font-size-sm);
       color: var(--gold);
       text-transform: uppercase
     }
@@ -560,7 +562,7 @@
     }
 
     .on-navy p {
-      color: var(--body-text-color)
+      color: var(--text-color)
     }
 
     .on-navy .lead {
@@ -678,9 +680,8 @@
     }
 
     .about-body p {
-      font-size: 1.06rem;
       line-height: 1.95;
-      color: rgba(224, 239, 250, .78);
+      color: var(--text-color);
       margin-bottom: 18px
     }
 
@@ -733,7 +734,7 @@
     }
 
     .tip .n {
-      font-size: 12px;
+    font-size: var(--font-size-sm);
       letter-spacing: .16em;
       color: var(--gold);
       margin-bottom: 12px
@@ -745,8 +746,7 @@
     }
 
     .tip p {
-      font-size: 14.5px;
-      color: var(--body-text-color)
+      color: var(--text-color)
     }
 
     @media(max-width:760px) {
@@ -777,7 +777,6 @@
       cursor: pointer;
       font-size: clamp(1.05rem, 1.6vw, 1.25rem);
       font-weight: 500;
-      letter-spacing: .03em;
       padding: 26px 46px 26px 0;
       position: relative
     }
@@ -789,7 +788,6 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--gold);
-      font-size: 16px;
       transition: transform .4s var(--ease)
     }
 
@@ -810,7 +808,6 @@
 
     .faq-a p {
       color: rgba(224, 239, 250, .8);
-      font-size: 16px;
       margin-bottom:1rem;
       max-width: 72ch
     }
@@ -857,7 +854,7 @@
   border-bottom: none;
 }
     .contact-info .k {
-      font-size: 14px;
+    font-size: var(--font-size-sm);
       letter-spacing: .18em;
       text-transform: uppercase;
       color: rgba(224, 239, 250, .55);
@@ -889,7 +886,6 @@
     }
 
     .contact-info .v {
-      font-size: 16px;
       color: var(--cream);
       text-align: right
     }
@@ -927,22 +923,28 @@
     .foot-links {
       display: flex;
       gap: 24px;
-      color: var(--body-text-color);
+      color: var(--text-color);
     }
 
     .foot-links a {
-      color: rgba(224, 239, 250, .8);
-      font-size: 16px;
-      letter-spacing: .04em
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+      transition: transform .25s var(--ease), filter .25s var(--ease)
+    }
+
+    .foot-ic {
+      display: block;
+      width: 24px;
+      height: 24px
     }
 
     .foot-links a:hover {
-      color: var(--gold)
+      transform: translateY(-2px);
+      filter: brightness(1.12)
     }
 
     .copyright {
-      color: rgba(224, 239, 250, .4);
-      font-size: 12.5px;
       text-align: center;
       letter-spacing: .08em
     }
@@ -1015,7 +1017,7 @@
     }
 
     .why-copy p {
-      color: var(--body-text-color);
+      color: var(--text-color);
       margin-bottom: 16px;
       line-height: 1.95
     }
@@ -1132,7 +1134,7 @@
       bottom: 26px;
       text-align: center;
       color: #fff;
-      font-size: 14px;
+    font-size: var(--font-size-sm);
       letter-spacing: .06em
     }
 
@@ -1142,7 +1144,7 @@
       left: 26px;
       color: rgba(255, 255, 255, .7);
       font-size: 13px;
-      letter-spacing: .12em
+      letter-spacing: .5em
     }
 
     [data-lightbox] {
@@ -1185,7 +1187,7 @@
   .gallery2 .gpara img{width:100%;display:block;height:auto;transition:transform 1s var(--ease);will-change:transform}
   .gallery2 .gitem:hover .gpara img{transform:scale(1.06)}
   .gallery2 .gmeta{display:flex;align-items:baseline;gap:12px;padding:15px 4px 0}
-  .gallery2 .gtag{flex:none;font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-soft);border-radius:999px;padding:4px 14px;line-height:1;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+  .gallery2 .gtag{flex:none;font-family:var(--sans);font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-soft);border-radius:999px;padding:4px 14px;line-height:1;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
   .gallery2 .gitem:hover .gtag{background:var(--gold);color:var(--navy);border-color:var(--gold)}
   .gallery2 .gtitle{font-family:var(--serif);font-size:1.02rem;color:var(--cream);font-weight:500;position:relative;line-height:1.4}
   .gallery2 .gtitle::after{content:"";position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--gold);transition:width .55s var(--ease)}
@@ -1215,13 +1217,13 @@
   .gcard{background:var(--panel);border:1px solid var(--line-d);border-radius:14px;padding:clamp(22px,3vw,30px)}
   .gcard h3{font-family:var(--serif);font-size:1.6rem;font-weight:500;color:var(--white);margin-bottom:14px}
   .gcard ul{display:flex;flex-direction:column;gap:9px}
-  .gcard li{position:relative;padding-left:18px;color:var(--body-text-color);font-size:16px;line-height:1.75}
+  .gcard li{position:relative;padding-left:18px;color:var(--text-color);font-size:16px;line-height:1.75}
   .gcard li::before{content:"–";position:absolute;left:0;color:var(--gold)}
   .gcard li.warn{color:#ff7b72;font-weight:500}
   .gcard li.warn::before{content:"⚠";color:#ff7b72;left:-2px}
-  .gnote{max-width:1100px;margin:clamp(18px,2vw,26px) auto 0;font-size:16px;color:var(--body-text-color);text-align:center;line-height:1.85}
+  .gnote{max-width:1100px;margin:clamp(18px,2vw,26px) auto 0;font-size:16px;color:var(--text-color);text-align:center;line-height:1.85}
   /* merged service: intro + dark price banner */
-  .panel-intro{max-width:1000px;margin:0 auto clamp(18px,2vw,24px);text-align:center;color:var(--body-text-color);font-size:18px;line-height:1.9}
+  .panel-intro{max-width:1000px;margin:0 auto clamp(18px,2vw,24px);text-align:center;color:var(--text-color);font-size:18px;line-height:1.9}
   /* default banner = full-width band (used by the unchanged 其他服務 tab) */
   .plan-banner{background:var(--sec-a);border-radius:14px;padding:clamp(20px,3vw,28px) clamp(22px,3vw,34px);display:flex;flex-wrap:wrap;align-items:center;gap:18px 36px;width:100%;max-width:1100px;margin:clamp(24px,3vw,34px) auto 0}
   /* reworked tabs: banner sits inside .gcols as a dark grid cell */
@@ -1231,14 +1233,14 @@
   .pb-item .pb-amt{font-family:var(--serif);font-size:clamp(1.5rem,2.8vw,2.1rem);font-weight:600;color:var(--gold);line-height:1.05}
   .pb-item .pb-sub{font-size:14px;color:var(--gold-soft); letter-spacing:.1em;margin-top:4px;}
   .plan-banner .btn{margin-left:auto;white-space:nowrap}
-  .pb-note{flex-basis:100%;font-size:16px;color:var(--body-text-color);margin:0;letter-spacing:.02em}
+  .pb-note{flex-basis:100%;font-size:16px;color:var(--text-color);margin:0;}
   .gcols .plan-banner .pb-note{flex-basis:auto}
   .pb-prices{display:flex;flex-wrap:wrap;gap:14px 40px;align-items:flex-start}
   /* 證件照: tall banner with add-on list pushed to the bottom */
   .pb-addon{margin-top:auto;padding-top:18px;border-top:1px solid var(--line-d)}
   .pb-addon h4{font-family:var(--serif);font-size:1.6rem;letter-spacing:.06em;color:var(--white);font-weight:500;margin-bottom:10px}
   .pb-addon ul{display:flex;flex-direction:column;gap:8px}
-  .pb-addon li{position:relative;padding-left:16px;font-size:14px;color:var(--body-text-color);line-height:1.7}
+  .pb-addon li{position:relative;padding-left:16px;font-size:14px;color:var(--text-color);line-height:1.7}
   .pb-addon li::before{content:"–";position:absolute;left:0;color:var(--gold)}
   /* 證件照 split layout: 2 cards stacked left, banner tall on the right */
   .gcols.split .gcard:nth-of-type(1){grid-column:1;grid-row:1}
@@ -1248,7 +1250,7 @@
   @media(max-width:560px){.plan-banner .btn{margin-left:0;width:100%;justify-content:center}}
   .gtransport{max-width:1100px;margin:clamp(20px,2.5vw,30px) auto 0;background:var(--panel);border:1px solid var(--line-d);border-radius:14px;padding:clamp(22px,3vw,30px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
   .gtransport h4{font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-  .gtransport p{font-size:16px;color:var(--body-text-color);line-height:1.8}
+  .gtransport p{font-size:16px;color:var(--text-color);line-height:1.8}
   @media(max-width:760px){.gtransport{grid-template-columns:1fr}}
   /* Location: map + transport */
   .loc-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:clamp(18px,2.5vw,30px);margin-top:clamp(28px,3vw,44px);align-items:stretch}
