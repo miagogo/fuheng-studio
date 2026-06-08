@@ -6,6 +6,7 @@
       --cream: #E9F1F8;
       --cream-1: #F2F7FC;
       --cream-2: #D7E6F2;
+      --dark-gray: #111111;
       /* dark theme section tones (interleaved) */
       --sec-a: #0D1721;
       --sec-b: #212526;
@@ -576,7 +577,9 @@
     .on-cream-2 {
       background: var(--sec-b)
     }
-
+    .on-dark-gray {
+      background: var(--dark-gray)
+    }
     /* About */
     .about-grid {
       display: grid;
