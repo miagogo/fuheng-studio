@@ -1,0 +1,17 @@
+# 福亨攝影 — 短網址 / Short links (Cloudflare Pages _redirects)
+# 格式：/來源路徑   目標網址   狀態碼
+
+# 從網站導向各平台（給訪客點）
+/ig          https://www.instagram.com/fuheng_studio?utm_source=instagram&utm_medium=social&utm_campaign=website   302
+/fb          https://www.facebook.com/fuhengstudio?utm_source=facebook&utm_medium=social&utm_campaign=website       302
+/line        https://lin.ee/OShebzd?utm_source=line&utm_medium=social&utm_campaign=website                         302
+/maps        https://maps.app.goo.gl/nwdM4dtn1aZes25J6?utm_source=google_maps&utm_medium=local&utm_campaign=gmb    302
+/messenger   https://m.me/fuhengstudio?utm_source=facebook&utm_medium=social&utm_campaign=website                  302
+
+# 從各平台導向網站（放在各平台 bio）
+/from-ig       https://fuheng-studio.com?utm_source=instagram&utm_medium=social&utm_campaign=bio        302
+/from-fb       https://fuheng-studio.com?utm_source=facebook&utm_medium=social&utm_campaign=profile     302
+/from-line     https://fuheng-studio.com?utm_source=line&utm_medium=social&utm_campaign=profile         302
+/from-threads  https://fuheng-studio.com?utm_source=threads&utm_medium=social&utm_campaign=bio          302
+/from-wix      https://fuheng-studio.com?utm_source=wix&utm_medium=referral&utm_campaign=migration      302
+/from-maps     https://fuheng-studio.com?utm_source=google_maps&utm_medium=local&utm_campaign=gmb       302
