@@ -8,6 +8,35 @@ UTM 參數讓 Google Analytics 4（GA4）知道訪客「從哪個管道來」。
 
 ---
 
+## 0. 短網址 Short links（由 `ikemoto-blue/_redirects` 管理）★ 最方便
+
+> 短網址會 302 轉址到下面 §1 / §2 的完整 UTM 連結。
+> 好處：**短、好記、好貼**，而且日後要改 campaign 只要改 `_redirects` 一個檔，不用動各平台 bio 或 HTML。
+
+### 出站 Outbound（給訪客點 → 連到平台，已套用於官網按鈕）
+
+| 短網址 | 轉址到 |
+|---|---|
+| `https://fuheng-studio.com/ig` | Instagram（utm…campaign=website） |
+| `https://fuheng-studio.com/fb` | Facebook 粉專 |
+| `https://fuheng-studio.com/line` | 官方 LINE |
+| `https://fuheng-studio.com/messenger` | Facebook Messenger |
+| `https://fuheng-studio.com/threads` | Threads |
+| `https://fuheng-studio.com/maps` | Google Maps 位置（utm…campaign=gmb） |
+
+### 入站 Inbound（貼在各平台 bio → 回官網）★ 真正會進 GA4
+
+| 貼在哪裡 | 短網址 | 轉址到（GA4 會記錄） |
+|---|---|---|
+| Instagram bio | `https://fuheng-studio.com/from-ig` | `…?utm_source=instagram&utm_medium=social&utm_campaign=bio` |
+| Facebook 簡介 | `https://fuheng-studio.com/from-fb` | `…?utm_source=facebook&utm_medium=social&utm_campaign=profile` |
+| LINE 官方帳號 | `https://fuheng-studio.com/from-line` | `…?utm_source=line&utm_medium=social&utm_campaign=profile` |
+| Threads 簡介 | `https://fuheng-studio.com/from-threads` | `…?utm_source=threads&utm_medium=social&utm_campaign=bio` |
+| Wix（舊站轉移） | `https://fuheng-studio.com/from-wix` | `…?utm_source=wix&utm_medium=referral&utm_campaign=migration` |
+| Google Maps / 商家 | `https://fuheng-studio.com/from-maps` | `…?utm_source=google_maps&utm_medium=local&utm_campaign=gmb` |
+
+---
+
 ## 1. 導入連結 Inbound（貼在各平台 → 指向官網）★ 建議優先使用
 
 | 貼在哪裡 | 連結 |
