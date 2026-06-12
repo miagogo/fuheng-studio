@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Utility short-link redirects (humans still follow them; keep bots out)
+Disallow: /ig
+Disallow: /fb
+Disallow: /line
+Disallow: /messenger
+Disallow: /threads
+Disallow: /maps
+Disallow: /from-
+
 Sitemap: https://fuheng-studio.com/sitemap.xml
